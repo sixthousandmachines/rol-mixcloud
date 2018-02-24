@@ -1,0 +1,20 @@
+{
+  "name": "rol-mixcloud",
+  "version": "1.0.0",
+  "description": "Rideoutlane (Mixcloud backend)",
+  "main": "index.html",
+  "scripts": {
+    "test": "npm test",
+    "deploy": "sh deploy/deploy.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sixthousandmachines/rol-mixcloud.git"
+  },
+  "author": "sixthousandmachines",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sixthousandmachines/rol-mixcloud/issues"
+  },
+  "homepage": "https://github.com/sixthousandmachines/rol-mixcloud#readme"
+}
