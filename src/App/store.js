@@ -65,9 +65,35 @@ define(['require', 'app/constants', 'app/config', 'flux-capacitor', 'linq', 'res
         }
 
         var getMenu = function () {
-            for (var i = 0; i < _config.djs.length; i++) {
+            if (_menu.length > 0) {
+                emitChange()
+            }
+            else {
+                var djs = getDJList()
+                getDJInfo(djs)
+                emitChange()
+            }
+        }
+
+        var getDJList = function () {
+            var djs = []
+            var url = rest.BuildUrl(_config.cloud.baseUrl, _config.cloud.djsUrl)
+            var callback = function (results, async) {
+                var data = JSON.parse(results)
+                if (data) {
+                    for (var i in data) {
+                        djs.push(data[i])
+                    }
+                }
+            }
+            rest.Get(url, callback, false, false)
+            return djs
+        }
+
+        var getDJInfo = function (djs) {
+            for (var i in djs) {
                 var expansion = {
-                    dj: _config.djs[i]
+                    dj: djs[i]
                 }
 
                 var url = rest.BuildUrl(_config.cloud.baseUrl, _config.cloud.profileUrl, expansion)
@@ -80,11 +106,9 @@ define(['require', 'app/constants', 'app/config', 'flux-capacitor', 'linq', 'res
                             image: data.pictures.medium
                         })
                     };
-
-                    emitChange()
                 }
 
-                rest.Get(url, callback, true, false)
+                rest.Get(url, callback, false, false)
             }
         }
 
