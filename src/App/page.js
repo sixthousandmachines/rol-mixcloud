@@ -55,7 +55,7 @@ define(['require', 'react-with-addons', 'app/store', 'app/view-actions'], functi
           react.createElement('p', null, '.com')),
         react.createElement('div', { id: 'menu' },
           react.createElement('ul', { id: 'main' },
-            (this.props.menu || []).map(function (item, index) {
+            (this.props.children.menu || []).map(function (item, index) {
               return react.createElement(MenuItem, { onMenuClick: self._onMenuClick, selected: item.name === self.props.dj }, item)
             }))))
     },
@@ -71,13 +71,13 @@ define(['require', 'react-with-addons', 'app/store', 'app/view-actions'], functi
     render: function render () {
       return react.createElement('li', { className: this.props.selected ? 'current_page_item' : '' },
         react.createElement('div', {
-          onclick: this._onClick,
-          style: { backgroundImage: "url('" + this.props.image + "')" }
+          onClick: this._onClick,
+          style: { backgroundImage: "url('" + this.props.children.image + "')" }
         }))
     },
 
     _onClick: function () {
-      this.props.onMenuClick(this.props.name)
+      this.props.onMenuClick(this.props.children.name)
     }
   })
 
@@ -87,7 +87,7 @@ define(['require', 'react-with-addons', 'app/store', 'app/view-actions'], functi
     render: function render () {
       return react.createElement('div', { id: 'page' },
         react.createElement('div', { id: 'content' },
-          (this.props.list || []).map(function (item, index) {
+          (this.props.children.list || []).map(function (item, index) {
             return react.createElement('div', { className: 'post' },
               react.createElement('iframe', item))
           })))
@@ -99,7 +99,7 @@ define(['require', 'react-with-addons', 'app/store', 'app/view-actions'], functi
 
     render: function render () {
       return react.createElement('div', { id: 'footer' },
-        react.createElement('p', null, '©2015 All Rights Reserved.'))
+        react.createElement('p', null, '©2018 All Rights Reserved.'))
     }
   })
 

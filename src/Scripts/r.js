@@ -1111,34 +1111,34 @@ var requirejs, require, define, xpcUtil;
                             // onError is set, use that.
                 if ((this.events.error && this.map.isDefine) ||
                                 req.onError !== defaultOnError) {
-                try {
+                  try {
                     exports = context.execCb(id, factory, depExports, exports)
                   } catch (e) {
                     err = e
                   }
-              } else {
-                exports = context.execCb(id, factory, depExports, exports)
-              }
+                } else {
+                  exports = context.execCb(id, factory, depExports, exports)
+                }
 
                             // Favor return value over exports. If node/cjs in play,
                             // then will not have a return value anyway. Favor
                             // module.exports assignment over exports object.
                 if (this.map.isDefine && exports === undefined) {
-                cjsModule = this.module
-                if (cjsModule) {
+                  cjsModule = this.module
+                  if (cjsModule) {
                     exports = cjsModule.exports
                   } else if (this.usingExports) {
                                     // exports already set the defined value.
-                      exports = this.exports
-                    }
-              }
+                    exports = this.exports
+                  }
+                }
 
                 if (err) {
-                err.requireMap = this.map
-                err.requireModules = this.map.isDefine ? [this.map.id] : null
-                err.requireType = this.map.isDefine ? 'define' : 'require'
-                return onError((this.error = err))
-              }
+                  err.requireMap = this.map
+                  err.requireModules = this.map.isDefine ? [this.map.id] : null
+                  err.requireType = this.map.isDefine ? 'define' : 'require'
+                  return onError((this.error = err))
+                }
               } else {
                             // Just a literal value
                 exports = factory
@@ -1150,8 +1150,8 @@ var requirejs, require, define, xpcUtil;
                 defined[id] = exports
 
                 if (req.onResourceLoad) {
-                req.onResourceLoad(context, this.map, this.depMaps)
-              }
+                  req.onResourceLoad(context, this.map, this.depMaps)
+                }
               }
 
                         // Clean up
@@ -2449,19 +2449,19 @@ var requirejs, require, define, xpcUtil;
                         // A plugin, call requirejs to handle it. Now that
                         // nextTick is syncTick, the require will complete
                         // synchronously.
-                  localRequire([moduleMap.originalName])
+                localRequire([moduleMap.originalName])
 
                         // Now that plugin is loaded, can regenerate the moduleMap
                         // to get the final, normalized ID.
-                  moduleMap = context.makeModuleMap(moduleMap.originalName, relModuleMap, false, true)
-                  moduleName = moduleMap.id
-                } else {
+                moduleMap = context.makeModuleMap(moduleMap.originalName, relModuleMap, false, true)
+                moduleName = moduleMap.id
+              } else {
                         // Try to dynamically fetch it.
-                  req.load(context, moduleName, moduleMap.url)
+                req.load(context, moduleName, moduleMap.url)
 
                         // Enable the module
-                  context.enable(moduleMap, relModuleMap)
-                }
+                context.enable(moduleMap, relModuleMap)
+              }
 
                     // Break any cycles by requiring it normally, but this will
                     // finish synchronously
@@ -3007,10 +3007,10 @@ var requirejs, require, define, xpcUtil;
                     err = no(e)
 
                     if (err && err.then) {
-                        err.then(next.resolve, next.reject)
-                      } else {
-                        next.resolve(err)
-                      }
+                      err.then(next.resolve, next.reject)
+                    } else {
+                      next.resolve(err)
+                    }
                   }
                 } catch (e2) {
                   next.reject(e2)
@@ -3569,8 +3569,8 @@ var requirejs, require, define, xpcUtil;
                   if (makeUnixPaths) {
                             // Make sure we have a JS string.
                     if (filePath.indexOf('/') === -1) {
-                        filePath = frontSlash(filePath)
-                      }
+                      filePath = frontSlash(filePath)
+                    }
                   }
 
                   ok = true
@@ -3840,8 +3840,8 @@ var requirejs, require, define, xpcUtil;
                             // Make sure we have a JS string.
                     filePath = String(filePath)
                     if (filePath.indexOf('/') === -1) {
-                        filePath = filePath.replace(/\\/g, '/')
-                      }
+                      filePath = filePath.replace(/\\/g, '/')
+                    }
                   }
 
                   ok = true
@@ -4151,8 +4151,8 @@ var requirejs, require, define, xpcUtil;
                   filePath = fileObj.path
                   if (makeUnixPaths) {
                     if (filePath.indexOf('/') === -1) {
-                        filePath = filePath.replace(/\\/g, '/')
-                      }
+                      filePath = filePath.replace(/\\/g, '/')
+                    }
                   }
 
                   ok = true
@@ -4942,9 +4942,9 @@ var requirejs, require, define, xpcUtil;
               if (extra.comments) {
                 comment = source.slice(start + 2, index - 2)
                 loc.end = {
-                    line: lineNumber,
-                    column: index - lineStart
-                  }
+                  line: lineNumber,
+                  column: index - lineStart
+                }
                 addComment('Block', comment, start, index, loc)
               }
               return
@@ -4983,34 +4983,34 @@ var requirejs, require, define, xpcUtil;
               skipSingleLineComment(2)
               start = true
             } else if (ch === 0x2A) {  // U+002A is '*'
-                ++index
-                ++index
-                skipMultiLineComment()
-              } else {
-                break
-              }
+              ++index
+              ++index
+              skipMultiLineComment()
+            } else {
+              break
+            }
           } else if (start && ch === 0x2D) { // U+002D is '-'
                 // U+003E is '>'
             if ((source.charCodeAt(index + 1) === 0x2D) && (source.charCodeAt(index + 2) === 0x3E)) {
                     // '-->' is a single-line comment
-                index += 3
-                skipSingleLineComment(3)
-              } else {
-                break
-              }
-          } else if (ch === 0x3C) { // U+003C is '<'
-              if (source.slice(index + 1, index + 4) === '!--') {
-          ++index // `<`
-          ++index // `!`
-          ++index // `-`
-          ++index // `-`
-          skipSingleLineComment(4)
-        } else {
-          break
-        }
+              index += 3
+              skipSingleLineComment(3)
             } else {
               break
             }
+          } else if (ch === 0x3C) { // U+003C is '<'
+            if (source.slice(index + 1, index + 4) === '!--') {
+              ++index // `<`
+              ++index // `!`
+              ++index // `-`
+              ++index // `-`
+              skipSingleLineComment(4)
+            } else {
+              break
+            }
+          } else {
+            break
+          }
         }
       }
 
@@ -5542,18 +5542,18 @@ var requirejs, require, define, xpcUtil;
                 case 'u':
                 case 'x':
                   if (source[index] === '{') {
-                      ++index
-                      str += scanUnicodeCodePointEscape()
+                    ++index
+                    str += scanUnicodeCodePointEscape()
+                  } else {
+                    restore = index
+                    unescaped = scanHexEscape(ch)
+                    if (unescaped) {
+                      str += unescaped
                     } else {
-                      restore = index
-                      unescaped = scanHexEscape(ch)
-                      if (unescaped) {
-                  str += unescaped
-                } else {
-                  index = restore
-                  str += ch
-                }
+                      index = restore
+                      str += ch
                     }
+                  }
                   break
                 case 'n':
                   str += '\n'
@@ -5576,29 +5576,29 @@ var requirejs, require, define, xpcUtil;
 
                 default:
                   if (isOctalDigit(ch)) {
-                      code = '01234567'.indexOf(ch)
+                    code = '01234567'.indexOf(ch)
 
                             // \0 is not octal escape sequence
-                      if (code !== 0) {
-                  octal = true
-                }
+                    if (code !== 0) {
+                      octal = true
+                    }
 
-                      if (index < length && isOctalDigit(source[index])) {
-                  octal = true
-                  code = code * 8 + '01234567'.indexOf(source[index++])
+                    if (index < length && isOctalDigit(source[index])) {
+                      octal = true
+                      code = code * 8 + '01234567'.indexOf(source[index++])
 
                                 // 3 digits are only allowed when string starts
                                 // with 0, 1, 2, 3
-                  if ('0123'.indexOf(ch) >= 0 &&
+                      if ('0123'.indexOf(ch) >= 0 &&
                                         index < length &&
                                         isOctalDigit(source[index])) {
-                      code = code * 8 + '01234567'.indexOf(source[index++])
+                        code = code * 8 + '01234567'.indexOf(source[index++])
+                      }
                     }
-                }
-                      str += String.fromCharCode(code)
-                    } else {
-                      str += ch
-                    }
+                    str += String.fromCharCode(code)
+                  } else {
+                    str += ch
+                  }
                   break
               }
             } else {
@@ -5702,8 +5702,8 @@ var requirejs, require, define, xpcUtil;
               terminated = true
               break
             } else if (ch === '[') {
-                classMarker = true
-              }
+              classMarker = true
+            }
           }
         }
 
@@ -6966,15 +6966,15 @@ var requirejs, require, define, xpcUtil;
           token.value = null
           expr = node.finishLiteral(token)
         } else if (match('/') || match('/=')) {
-            if (typeof extra.tokens !== 'undefined') {
-        expr = node.finishLiteral(collectRegex())
-      } else {
-        expr = node.finishLiteral(scanRegExp())
-      }
-            peek()
+          if (typeof extra.tokens !== 'undefined') {
+            expr = node.finishLiteral(collectRegex())
           } else {
-            throwUnexpectedToken(lex())
+            expr = node.finishLiteral(scanRegExp())
           }
+          peek()
+        } else {
+          throwUnexpectedToken(lex())
+        }
 
         return expr
       }
@@ -7412,8 +7412,8 @@ var requirejs, require, define, xpcUtil;
             } else if (expr.type === Syntax.SequenceExpression) {
               list = reinterpretAsCoverFormalsList(expr.expressions)
             } else if (expr === PlaceHolders.ArrowParameterPlaceHolder) {
-                list = reinterpretAsCoverFormalsList([])
-              }
+              list = reinterpretAsCoverFormalsList([])
+            }
             if (list) {
               return parseArrowFunctionExpression(list, new WrappingNode(startToken))
             }
@@ -10325,9 +10325,9 @@ var requirejs, require, define, xpcUtil;
                 ch = read_while(function (ch) {
                   if (ch >= '0' && ch <= '7') {
                     if (!first) {
-                  first = ch
-                  return ++octal_len
-                } else if (first <= '3' && octal_len <= 2) return ++octal_len
+                      first = ch
+                      return ++octal_len
+                    } else if (first <= '3' && octal_len <= 2) return ++octal_len
                     else if (first >= '4' && octal_len <= 1) return ++octal_len
                   }
                   return false
@@ -10411,12 +10411,12 @@ var requirejs, require, define, xpcUtil;
                 in_class = false
                 regexp += ch
               } else if (ch == '/' && !in_class) {
-            break
-          } else if (ch == '\\') {
-          prev_backslash = true
-        } else {
-          regexp += ch
-        }
+                break
+              } else if (ch == '\\') {
+                prev_backslash = true
+              } else {
+                regexp += ch
+              }
             }
             var mods = read_name()
             return token('regexp', [ regexp, mods ])
@@ -11190,7 +11190,7 @@ var requirejs, require, define, xpcUtil;
 
       function member (name, array) {
         for (var i = array.length; --i >= 0;) {
-          if (array[i] == name)            { return true }
+          if (array[i] == name) { return true }
         }
         return false
       };
@@ -11263,13 +11263,13 @@ var requirejs, require, define, xpcUtil;
                 }
               } else if (ctor[1] == 'Object' && !scope.has('Object')) {
                 if (!args.length) {
-              return [ 'object', [] ]
-            } else {
-              return walk([ 'call', [ 'name', 'Object' ], args ])
-            }
+                  return [ 'object', [] ]
+                } else {
+                  return walk([ 'call', [ 'name', 'Object' ], args ])
+                }
               } else if ((ctor[1] == 'RegExp' || ctor[1] == 'Function' || ctor[1] == 'Error') && !scope.has(ctor[1])) {
-            return walk([ 'call', [ 'name', ctor[1] ], args])
-          }
+                return walk([ 'call', [ 'name', ctor[1] ], args])
+              }
             }
           },
           'call': function (expr, args) {
@@ -11617,12 +11617,12 @@ var requirejs, require, define, xpcUtil;
       Scope.prototype = {
         has: function (name) {
           for (var s = this; s; s = s.parent) {
-            if (HOP(s.names, name))              { return s }
+            if (HOP(s.names, name)) { return s }
           }
         },
         has_mangled: function (mname) {
           for (var s = this; s; s = s.parent) {
-            if (HOP(s.rev_mangled, mname))              { return s }
+            if (HOP(s.rev_mangled, mname)) { return s }
           }
         },
         toJSON: function () {
@@ -12091,13 +12091,13 @@ var requirejs, require, define, xpcUtil;
                          (expr[1] == '||' || expr[1] == '&&')) {
                     // the whole expression is not constant but the lval may be...
                 try {
-                    var lval = evaluate(expr[2])
-                    expr = ((expr[1] == '&&' && (lval ? expr[3] : lval)) ||
+                  var lval = evaluate(expr[2])
+                  expr = ((expr[1] == '&&' && (lval ? expr[3] : lval)) ||
                                 (expr[1] == '||' && (lval || expr[3])) ||
                                 expr)
-                  } catch (ex2) {
+                } catch (ex2) {
                         // IGNORE... lval is not constant
-                  }
+                }
               }
               return no ? no.call(expr, expr) : null
             } else throw ex
@@ -12257,12 +12257,12 @@ var requirejs, require, define, xpcUtil;
                     // insert the definition into the var declaration
                 for (var i = names.length; --i >= 0;) {
                   if (names[i][0] == ast[2][1]) {
-                      if (names[i][1]) // this name already defined, we must stop
+                    if (names[i][1]) // this name already defined, we must stop
                   { stop() }
-                      names[i][1] = ast[3] // definition
-                      names.push(names.splice(i, 1)[0])
-                      break
-                    }
+                    names[i][1] = ast[3] // definition
+                    names.push(names.splice(i, 1)[0])
+                    break
+                  }
                 }
                     // remove this assignment from the AST.
                 var p = walker.parent()
@@ -12271,10 +12271,10 @@ var requirejs, require, define, xpcUtil;
                   a.unshift(0, p.length)
                   p.splice.apply(p, a)
                 } else if (p[0] == 'stat') {
-                    p.splice(0, p.length, 'block') // empty statement
-                  } else {
-                    stop()
-                  }
+                  p.splice(0, p.length, 'block') // empty statement
+                } else {
+                  stop()
+                }
                 restart()
               }
               stop()
@@ -12438,15 +12438,15 @@ var requirejs, require, define, xpcUtil;
               statements.forEach(function (st) {
                 if (has_quit) {
                   if (st[0] == 'function' || st[0] == 'defun') {
-                      a.push(st)
-                    } else if (st[0] == 'var' || st[0] == 'const') {
-                      if (!options.no_warnings) { warn('Variables declared in unreachable code') }
-                      st[1] = MAP(st[1], function (def) {
-                  if (def[1] && !options.no_warnings) { warn_unreachable([ 'assign', true, [ 'name', def[0] ], def[1] ]) }
-                  return [ def[0] ]
-                })
-                      a.push(st)
-                    } else if (!options.no_warnings) { warn_unreachable(st) }
+                    a.push(st)
+                  } else if (st[0] == 'var' || st[0] == 'const') {
+                    if (!options.no_warnings) { warn('Variables declared in unreachable code') }
+                    st[1] = MAP(st[1], function (def) {
+                      if (def[1] && !options.no_warnings) { warn_unreachable([ 'assign', true, [ 'name', def[0] ], def[1] ]) }
+                      return [ def[0] ]
+                    })
+                    a.push(st)
+                  } else if (!options.no_warnings) { warn_unreachable(st) }
                 } else {
                   a.push(st)
                   if (member(st[0], [ 'return', 'throw', 'break', 'continue' ])) { has_quit = true }
@@ -12560,7 +12560,7 @@ var requirejs, require, define, xpcUtil;
             ret = best_of(ret, walk([ 'if', [ 'binary', '&&', c, t[1] ], t[2] ]))
           } else if (t[0] == 'stat') {
             if (e) {
-              if (e[0] == 'stat')                  { ret = best_of(ret, [ 'stat', make_conditional(c, t[1], e[1]) ]) }              else if (aborts(e)) { ret = abort_else(c, t, e) }
+              if (e[0] == 'stat') { ret = best_of(ret, [ 'stat', make_conditional(c, t[1], e[1]) ]) } else if (aborts(e)) { ret = abort_else(c, t, e) }
             } else {
               ret = best_of(ret, [ 'stat', make_conditional(c, t[1]) ])
             }
@@ -12569,14 +12569,14 @@ var requirejs, require, define, xpcUtil;
           } else if (e && aborts(t)) {
             ret = [ [ 'if', c, t ] ]
             if (e[0] == 'block') {
-                if (e[1]) ret = ret.concat(e[1])
-              } else {
-                ret.push(e)
-              }
+              if (e[1]) ret = ret.concat(e[1])
+            } else {
+              ret.push(e)
+            }
             ret = walk([ 'block', ret ])
           } else if (t && aborts(e)) {
-              ret = abort_else(c, t, e)
-            }
+            ret = abort_else(c, t, e)
+          }
           return ret
         };
 
@@ -13080,10 +13080,10 @@ var requirejs, require, define, xpcUtil;
                   key = encode_string(key)
                 } else if ((typeof key === 'number' || !beautify && +key + '' == key) &&
                                parseFloat(key) >= 0) {
-                    key = make_num(+key)
-                  } else if (!is_identifier(key)) {
-                    key = encode_string(key)
-                  }
+                  key = make_num(+key)
+                } else if (!is_identifier(key)) {
+                  key = encode_string(key)
+                }
                 return indent(add_spaces(beautify && options.space_colon
                                              ? [ key, ':', val ]
                                              : [ key + ':', val ]))
@@ -14954,17 +14954,17 @@ var requirejs, require, define, xpcUtil;
                 sourceMappingActive = false
               } else if (sourceMappingActive) {
                 map.addMapping({
-                    source: original.source,
-                    original: {
-                line: original.line,
-                column: original.column
-              },
-                    generated: {
-                line: generated.line,
-                column: generated.column
-              },
-                    name: original.name
-                  })
+                  source: original.source,
+                  original: {
+                    line: original.line,
+                    column: original.column
+                  },
+                  generated: {
+                    line: generated.line,
+                    column: generated.column
+                  },
+                  name: original.name
+                })
               }
             } else {
               generated.column += ch.length
@@ -15353,7 +15353,7 @@ var requirejs, require, define, xpcUtil;
 
       function member (name, array) {
         for (var i = array.length; --i >= 0;) {
-          if (array[i] == name)            { return true }
+          if (array[i] == name) { return true }
         }
         return false
       };
@@ -15390,7 +15390,7 @@ var requirejs, require, define, xpcUtil;
         var ret = args || {}
         if (croak) {
           for (var i in ret) {
-            if (ret.hasOwnProperty(i) && !defs.hasOwnProperty(i))              { DefaultsError.croak('`' + i + '` is not a supported option', defs) }
+            if (ret.hasOwnProperty(i) && !defs.hasOwnProperty(i)) { DefaultsError.croak('`' + i + '` is not a supported option', defs) }
           }
         }
         for (var i in defs) {
@@ -15549,8 +15549,7 @@ var requirejs, require, define, xpcUtil;
 
       function all (array, predicate) {
         for (var i = array.length; --i >= 0;) {
-          if (!predicate(array[i]))
-            {return false}
+          if (!predicate(array[i])) { return false }
         }
         return true
       };
@@ -15932,17 +15931,17 @@ var requirejs, require, define, xpcUtil;
                   case '$EXPORTS':
                     var body = []
                     to_export.forEach(function (sym) {
-                        body.push(new AST_SimpleStatement({
-                          body: new AST_Assign({
-                    left: new AST_Sub({
-                      expression: new AST_SymbolRef({ name: 'exports' }),
-                      property: new AST_String({ value: sym.name })
-                    }),
-                    operator: '=',
-                    right: new AST_SymbolRef(sym)
-                  })
-                        }))
-                      })
+                      body.push(new AST_SimpleStatement({
+                        body: new AST_Assign({
+                          left: new AST_Sub({
+                            expression: new AST_SymbolRef({ name: 'exports' }),
+                            property: new AST_String({ value: sym.name })
+                          }),
+                          operator: '=',
+                          right: new AST_SymbolRef(sym)
+                        })
+                      }))
+                    })
                     return MAP.splice(body)
                 }
               }
@@ -16945,9 +16944,9 @@ var requirejs, require, define, xpcUtil;
               ch = read_while(function (ch) {
                 if (ch >= '0' && ch <= '7') {
                   if (!first) {
-                      first = ch
-                      return ++octal_len
-                    } else if (first <= '3' && octal_len <= 2) return ++octal_len
+                    first = ch
+                    return ++octal_len
+                  } else if (first <= '3' && octal_len <= 2) return ++octal_len
                   else if (first >= '4' && octal_len <= 1) return ++octal_len
                 }
                 return false
@@ -17028,12 +17027,12 @@ var requirejs, require, define, xpcUtil;
               in_class = false
               regexp += ch
             } else if (ch == '/' && !in_class) {
-                break
-              } else if (ch == '\\') {
-                prev_backslash = true
-              } else {
-                regexp += ch
-              }
+              break
+            } else if (ch == '\\') {
+              prev_backslash = true
+            } else {
+              regexp += ch
+            }
           }
           var mods = read_name()
           return token('regexp', new RegExp(regexp, mods))
@@ -19114,14 +19113,14 @@ var requirejs, require, define, xpcUtil;
               if (self instanceof AST_Exit && self.value) {
                 self.value.walk(new TreeWalker(function (node) {
                   if (node.start && node.start.comments_before) {
-                      comments = comments.concat(node.start.comments_before)
-                      node.start.comments_before = []
-                    }
+                    comments = comments.concat(node.start.comments_before)
+                    node.start.comments_before = []
+                  }
                   if (node instanceof AST_Function ||
                             node instanceof AST_Array ||
                             node instanceof AST_Object) {
-                      return true // don't go inside.
-                    }
+                    return true // don't go inside.
+                  }
                 }))
               }
 
@@ -19131,22 +19130,22 @@ var requirejs, require, define, xpcUtil;
                 })
               } else if (typeof c === 'function') {
                 comments = comments.filter(function (comment) {
-                    return c(self, comment)
-                  })
+                  return c(self, comment)
+                })
               }
               comments.forEach(function (c) {
                 if (/comment[134]/.test(c.type)) {
                   output.print('//' + c.value + '\n')
                   output.indent()
                 } else if (c.type == 'comment2') {
-                    output.print('/*' + c.value + '*/')
-                    if (start.nlb) {
-                      output.print('\n')
-                      output.indent()
-                    } else {
-                      output.space()
-                    }
+                  output.print('/*' + c.value + '*/')
+                  if (start.nlb) {
+                    output.print('\n')
+                    output.indent()
+                  } else {
+                    output.space()
                   }
+                }
               })
             }
           }
@@ -20233,14 +20232,14 @@ var requirejs, require, define, xpcUtil;
                 body: make_node(AST_Assign, func, {
                   operator: '=',
                   left: make_node(AST_Dot, name, {
-                      expression: make_node(AST_SymbolRef, name, name),
-                      property: '$inject'
-                    }),
+                    expression: make_node(AST_SymbolRef, name, name),
+                    property: '$inject'
+                  }),
                   right: make_node(AST_Array, func, {
-                      elements: func.argnames.map(function (sym) {
-                        return make_node(AST_String, sym, { value: sym.name })
-                      })
+                    elements: func.argnames.map(function (sym) {
+                      return make_node(AST_String, sym, { value: sym.name })
                     })
+                  })
                 })
               })
             }
@@ -20253,16 +20252,16 @@ var requirejs, require, define, xpcUtil;
                 if (/@ngInject/.test(last.value)) {
                         // case 1: defun
                   if (stat instanceof AST_Defun) {
-                      a.push(make_injector(stat, stat.name))
-                    } else if (stat instanceof AST_Definitions) {
-                      stat.definitions.forEach(function (def) {
-                  if (def.value && def.value instanceof AST_Lambda) {
-                  a.push(make_injector(def.value, def.name))
-                }
-                })
-                    } else {
-                      compressor.warn('Unknown statement marked with @ngInject [{file}:{line},{col}]', token)
-                    }
+                    a.push(make_injector(stat, stat.name))
+                  } else if (stat instanceof AST_Definitions) {
+                    stat.definitions.forEach(function (def) {
+                      if (def.value && def.value instanceof AST_Lambda) {
+                        a.push(make_injector(def.value, def.name))
+                      }
+                    })
+                  } else {
+                    compressor.warn('Unknown statement marked with @ngInject [{file}:{line},{col}]', token)
+                  }
                 }
               }
               return a
@@ -20278,15 +20277,15 @@ var requirejs, require, define, xpcUtil;
               } else if (stat instanceof AST_EmptyStatement) {
                 CHANGED = true
               } else if (stat instanceof AST_Directive) {
-                  if (seen_dirs.indexOf(stat.value) < 0) {
-                    a.push(stat)
-                    seen_dirs.push(stat.value)
-                  } else {
-                    CHANGED = true
-                  }
-                } else {
+                if (seen_dirs.indexOf(stat.value) < 0) {
                   a.push(stat)
+                  seen_dirs.push(stat.value)
+                } else {
+                  CHANGED = true
                 }
+              } else {
+                a.push(stat)
+              }
               return a
             }, [])
           };
@@ -20312,57 +20311,57 @@ var requirejs, require, define, xpcUtil;
                     if (((in_lambda && ret.length == 0) ||
                              (ret[0] instanceof AST_Return && !ret[0].value)) &&
                             !stat.body.value && !stat.alternative) {
-                        CHANGED = true
-                        var cond = make_node(AST_SimpleStatement, stat.condition, {
-                          body: stat.condition
-                        })
-                        ret.unshift(cond)
-                        continue loop
-                      }
+                      CHANGED = true
+                      var cond = make_node(AST_SimpleStatement, stat.condition, {
+                        body: stat.condition
+                      })
+                      ret.unshift(cond)
+                      continue loop
+                    }
                         // ---
                         // if (foo()) return x; return y; ==> return foo() ? x : y;
                     if (ret[0] instanceof AST_Return && stat.body.value && ret[0].value && !stat.alternative) {
-                        CHANGED = true
-                        stat = stat.clone()
-                        stat.alternative = ret[0]
-                        ret[0] = stat.transform(compressor)
-                        continue loop
-                      }
+                      CHANGED = true
+                      stat = stat.clone()
+                      stat.alternative = ret[0]
+                      ret[0] = stat.transform(compressor)
+                      continue loop
+                    }
                         // ---
                         // if (foo()) return x; [ return ; ] ==> return foo() ? x : undefined;
                     if ((ret.length == 0 || ret[0] instanceof AST_Return) && stat.body.value && !stat.alternative && in_lambda) {
-                        CHANGED = true
-                        stat = stat.clone()
-                        stat.alternative = ret[0] || make_node(AST_Return, stat, {
-                          value: make_node(AST_Undefined, stat)
-                        })
-                        ret[0] = stat.transform(compressor)
-                        continue loop
-                      }
+                      CHANGED = true
+                      stat = stat.clone()
+                      stat.alternative = ret[0] || make_node(AST_Return, stat, {
+                        value: make_node(AST_Undefined, stat)
+                      })
+                      ret[0] = stat.transform(compressor)
+                      continue loop
+                    }
                         // ---
                         // if (foo()) return; [ else x... ]; y... ==> if (!foo()) { x...; y... }
                     if (!stat.body.value && in_lambda) {
-                        CHANGED = true
-                        stat = stat.clone()
-                        stat.condition = stat.condition.negate(compressor)
-                        stat.body = make_node(AST_BlockStatement, stat, {
-                          body: as_statement_array(stat.alternative).concat(ret)
-                        })
-                        stat.alternative = null
-                        ret = [ stat.transform(compressor) ]
-                        continue loop
-                      }
+                      CHANGED = true
+                      stat = stat.clone()
+                      stat.condition = stat.condition.negate(compressor)
+                      stat.body = make_node(AST_BlockStatement, stat, {
+                        body: as_statement_array(stat.alternative).concat(ret)
+                      })
+                      stat.alternative = null
+                      ret = [ stat.transform(compressor) ]
+                      continue loop
+                    }
                         // ---
                     if (ret.length == 1 && in_lambda && ret[0] instanceof AST_SimpleStatement &&
                             (!stat.alternative || stat.alternative instanceof AST_SimpleStatement)) {
-                        CHANGED = true
-                        ret.push(make_node(AST_Return, ret[0], {
-                          value: make_node(AST_Undefined, ret[0])
-                        }).transform(compressor))
-                        ret = as_statement_array(stat.alternative).concat(ret)
-                        ret.unshift(stat)
-                        continue loop
-                      }
+                      CHANGED = true
+                      ret.push(make_node(AST_Return, ret[0], {
+                        value: make_node(AST_Undefined, ret[0])
+                      }).transform(compressor))
+                      ret = as_statement_array(stat.alternative).concat(ret)
+                      ret.unshift(stat)
+                      continue loop
+                    }
                   }
 
                   var ab = aborts(stat.body)
@@ -20371,18 +20370,18 @@ var requirejs, require, define, xpcUtil;
                                (ab instanceof AST_Continue && self === loop_body(lct)) ||
                                (ab instanceof AST_Break && lct instanceof AST_BlockStatement && self === lct))) {
                     if (ab.label) {
-                        remove(ab.label.thedef.references, ab)
-                      }
+                      remove(ab.label.thedef.references, ab)
+                    }
                     CHANGED = true
                     var body = as_statement_array(stat.body).slice(0, -1)
                     stat = stat.clone()
                     stat.condition = stat.condition.negate(compressor)
                     stat.body = make_node(AST_BlockStatement, stat, {
-                        body: as_statement_array(stat.alternative).concat(ret)
-                      })
+                      body: as_statement_array(stat.alternative).concat(ret)
+                    })
                     stat.alternative = make_node(AST_BlockStatement, stat, {
-                        body: body
-                      })
+                      body: body
+                    })
                     ret = [ stat.transform(compressor) ]
                     continue loop
                   }
@@ -20393,16 +20392,16 @@ var requirejs, require, define, xpcUtil;
                                (ab instanceof AST_Continue && self === loop_body(lct)) ||
                                (ab instanceof AST_Break && lct instanceof AST_BlockStatement && self === lct))) {
                     if (ab.label) {
-                        remove(ab.label.thedef.references, ab)
-                      }
+                      remove(ab.label.thedef.references, ab)
+                    }
                     CHANGED = true
                     stat = stat.clone()
                     stat.body = make_node(AST_BlockStatement, stat.body, {
-                        body: as_statement_array(stat.body).concat(ret)
-                      })
+                      body: as_statement_array(stat.body).concat(ret)
+                    })
                     stat.alternative = make_node(AST_BlockStatement, stat.alternative, {
-                        body: as_statement_array(stat.alternative).slice(0, -1)
-                      })
+                      body: as_statement_array(stat.alternative).slice(0, -1)
+                    })
                     ret = [ stat.transform(compressor) ]
                     continue loop
                   }
@@ -20431,12 +20430,12 @@ var requirejs, require, define, xpcUtil;
                              lct instanceof AST_BlockStatement &&
                              loop_body(lct) === self) || (stat instanceof AST_Continue &&
                                                              loop_body(lct) === self)) {
-                      if (stat.label) {
-                        remove(stat.label.thedef.references, stat)
-                      }
-                    } else {
-                      a.push(stat)
+                    if (stat.label) {
+                      remove(stat.label.thedef.references, stat)
                     }
+                  } else {
+                    a.push(stat)
+                  }
                 } else {
                   a.push(stat)
                 }
@@ -20487,29 +20486,29 @@ var requirejs, require, define, xpcUtil;
                 if (stat instanceof AST_For) {
                   var opera = {}
                   try {
-                      prev.body.walk(new TreeWalker(function (node) {
-                        if (node instanceof AST_Binary && node.operator == 'in') { throw opera }
-                      }))
-                      if (stat.init && !(stat.init instanceof AST_Definitions)) {
-                        stat.init = cons_seq(stat.init)
-                      } else if (!stat.init) {
-                  stat.init = prev.body
-                  ret.pop()
-                }
-                    } catch (ex) {
-                      if (ex !== opera) throw ex
+                    prev.body.walk(new TreeWalker(function (node) {
+                      if (node instanceof AST_Binary && node.operator == 'in') { throw opera }
+                    }))
+                    if (stat.init && !(stat.init instanceof AST_Definitions)) {
+                      stat.init = cons_seq(stat.init)
+                    } else if (!stat.init) {
+                      stat.init = prev.body
+                      ret.pop()
                     }
+                  } catch (ex) {
+                    if (ex !== opera) throw ex
+                  }
                 } else if (stat instanceof AST_If) {
-                    stat.condition = cons_seq(stat.condition)
-                  } else if (stat instanceof AST_With) {
-                    stat.expression = cons_seq(stat.expression)
-                  } else if (stat instanceof AST_Exit && stat.value) {
-              stat.value = cons_seq(stat.value)
-            } else if (stat instanceof AST_Exit) {
-            stat.value = cons_seq(make_node(AST_Undefined, stat))
-          } else if (stat instanceof AST_Switch) {
-              stat.expression = cons_seq(stat.expression)
-            }
+                  stat.condition = cons_seq(stat.condition)
+                } else if (stat instanceof AST_With) {
+                  stat.expression = cons_seq(stat.expression)
+                } else if (stat instanceof AST_Exit && stat.value) {
+                  stat.value = cons_seq(stat.value)
+                } else if (stat instanceof AST_Exit) {
+                  stat.value = cons_seq(make_node(AST_Undefined, stat))
+                } else if (stat instanceof AST_Switch) {
+                  stat.expression = cons_seq(stat.expression)
+                }
               }
               ret.push(stat)
               prev = stat instanceof AST_SimpleStatement ? stat : null
@@ -20529,10 +20528,10 @@ var requirejs, require, define, xpcUtil;
                 CHANGED = true
                 a.pop()
                 if (stat.init) {
-                    stat.init.definitions = prev.definitions.concat(stat.init.definitions)
-                  } else {
-                    stat.init = prev
-                  }
+                  stat.init.definitions = prev.definitions.concat(stat.init.definitions)
+                } else {
+                  stat.init = prev
+                }
                 a.push(stat)
                 prev = stat
               } else {
@@ -20548,27 +20547,27 @@ var requirejs, require, define, xpcUtil;
               if (stat instanceof AST_SimpleStatement) {
                 stat.body = (function transform (thing) {
                   return thing.transform(new TreeTransformer(function (node) {
-                      if (node instanceof AST_Call && node.expression instanceof AST_Function) {
-                        return make_node(AST_UnaryPrefix, node, {
-                    operator: '!',
-                    expression: node
-                  })
-                      } else if (node instanceof AST_Call) {
-                  node.expression = transform(node.expression)
-                } else if (node instanceof AST_Seq) {
-                node.car = transform(node.car)
-              } else if (node instanceof AST_Conditional) {
-                  var expr = transform(node.condition)
-                  if (expr !== node.condition) {
+                    if (node instanceof AST_Call && node.expression instanceof AST_Function) {
+                      return make_node(AST_UnaryPrefix, node, {
+                        operator: '!',
+                        expression: node
+                      })
+                    } else if (node instanceof AST_Call) {
+                      node.expression = transform(node.expression)
+                    } else if (node instanceof AST_Seq) {
+                      node.car = transform(node.car)
+                    } else if (node instanceof AST_Conditional) {
+                      var expr = transform(node.condition)
+                      if (expr !== node.condition) {
                                     // it has been negated, reverse
-                      node.condition = expr
-                      var tmp = node.consequent
-                      node.consequent = node.alternative
-                      node.alternative = tmp
+                        node.condition = expr
+                        var tmp = node.consequent
+                        node.consequent = node.alternative
+                        node.alternative = tmp
+                      }
                     }
-                }
-                      return node
-                    }))
+                    return node
+                  }))
                 })(stat.body)
               }
             })
@@ -20898,8 +20897,7 @@ var requirejs, require, define, xpcUtil;
           })
           def(AST_Array, function (compressor) {
             for (var i = this.elements.length; --i >= 0;) {
-              if (this.elements[i].has_side_effects(compressor))
-                {return true}
+              if (this.elements[i].has_side_effects(compressor)) { return true }
             }
             return false
           })
@@ -20998,13 +20996,13 @@ var requirejs, require, define, xpcUtil;
                 }
                 if (node instanceof AST_Definitions && scope === self) {
                   node.definitions.forEach(function (def) {
-                      if (def.value) {
-                        initializations.add(def.name.name, def.value)
-                        if (def.value.has_side_effects(compressor)) {
-                  def.value.walk(tw)
-                }
+                    if (def.value) {
+                      initializations.add(def.name.name, def.value)
+                      if (def.value.has_side_effects(compressor)) {
+                        def.value.walk(tw)
                       }
-                    })
+                    }
+                  })
                   return true
                 }
                 if (node instanceof AST_SymbolRef) {
@@ -21030,13 +21028,13 @@ var requirejs, require, define, xpcUtil;
                 var init = initializations.get(decl.name)
                 if (init) {
                   init.forEach(function (init) {
-                      var tw = new TreeWalker(function (node) {
-                        if (node instanceof AST_SymbolRef) {
-                  push_uniq(in_use, node.definition())
-                }
-                      })
-                      init.walk(tw)
+                    var tw = new TreeWalker(function (node) {
+                      if (node instanceof AST_SymbolRef) {
+                        push_uniq(in_use, node.definition())
+                      }
                     })
+                    init.walk(tw)
+                  })
                 }
               })
             }
@@ -21231,42 +21229,42 @@ var requirejs, require, define, xpcUtil;
                     // try to merge in assignments
                 for (var i = 0; i < self.body.length;) {
                   if (self.body[i] instanceof AST_SimpleStatement) {
-                      var expr = self.body[i].body, sym, assign
-                      if (expr instanceof AST_Assign &&
+                    var expr = self.body[i].body, sym, assign
+                    if (expr instanceof AST_Assign &&
                                 expr.operator == '=' &&
                                 (sym = expr.left) instanceof AST_Symbol &&
                                 vars.has(sym.name)) {
-                        var def = vars.get(sym.name)
-                        if (def.value) break
-                        def.value = expr.right
-                        remove(defs, def)
-                        defs.push(def)
-                        self.body.splice(i, 1)
-                        continue
-                      }
-                      if (expr instanceof AST_Seq &&
+                      var def = vars.get(sym.name)
+                      if (def.value) break
+                      def.value = expr.right
+                      remove(defs, def)
+                      defs.push(def)
+                      self.body.splice(i, 1)
+                      continue
+                    }
+                    if (expr instanceof AST_Seq &&
                                 (assign = expr.car) instanceof AST_Assign &&
                                 assign.operator == '=' &&
                                 (sym = assign.left) instanceof AST_Symbol &&
                                 vars.has(sym.name)) {
-                        var def = vars.get(sym.name)
-                        if (def.value) break
-                        def.value = assign.right
-                        remove(defs, def)
-                        defs.push(def)
-                        self.body[i].body = expr.cdr
-                        continue
-                      }
+                      var def = vars.get(sym.name)
+                      if (def.value) break
+                      def.value = assign.right
+                      remove(defs, def)
+                      defs.push(def)
+                      self.body[i].body = expr.cdr
+                      continue
                     }
+                  }
                   if (self.body[i] instanceof AST_EmptyStatement) {
-                      self.body.splice(i, 1)
-                      continue
-                    }
+                    self.body.splice(i, 1)
+                    continue
+                  }
                   if (self.body[i] instanceof AST_BlockStatement) {
-                      var tmp = [ i, 1 ].concat(self.body[i].body)
-                      self.body.splice.apply(self.body, tmp)
-                      continue
-                    }
+                    var tmp = [ i, 1 ].concat(self.body[i].body)
+                    self.body.splice.apply(self.body, tmp)
+                    continue
+                  }
                   break
                 }
                 defs = make_node(AST_Var, self, {
@@ -21342,10 +21340,10 @@ var requirejs, require, define, xpcUtil;
                      compressor.loopcontrol_target(first.alternative.label) === self) {
               if (self.condition) {
                 self.condition = make_node(AST_Binary, self.condition, {
-                    left: self.condition,
-                    operator: '&&',
-                    right: first.condition
-                  })
+                  left: self.condition,
+                  operator: '&&',
+                  right: first.condition
+                })
               } else {
                 self.condition = first.condition
               }
@@ -21378,10 +21376,10 @@ var requirejs, require, define, xpcUtil;
                 if (self.init instanceof AST_Statement) {
                   a.push(self.init)
                 } else if (self.init) {
-                    a.push(make_node(AST_SimpleStatement, self.init, {
-                      body: self.init
-                    }))
-                  }
+                  a.push(make_node(AST_SimpleStatement, self.init, {
+                    body: self.init
+                  }))
+                }
                 extract_declarations_from_unreachable_code(compressor, self.body, a)
                 return make_node(AST_BlockStatement, self, { body: a })
               }
@@ -21551,52 +21549,52 @@ var requirejs, require, define, xpcUtil;
                     // no need to descend these node types
                   return node
                 } else if (node instanceof AST_Switch && node === self) {
-                    node = node.clone()
-                    descend(node, this)
-                    return ruined ? node : make_node(AST_BlockStatement, node, {
-                      body: node.body.reduce(function (a, branch) {
-                return a.concat(branch.body)
-              }, [])
-                    }).transform(compressor)
-                  } else if (node instanceof AST_If || node instanceof AST_Try) {
-                    var save = in_if
-                    in_if = !in_block
-                    descend(node, this)
-                    in_if = save
+                  node = node.clone()
+                  descend(node, this)
+                  return ruined ? node : make_node(AST_BlockStatement, node, {
+                    body: node.body.reduce(function (a, branch) {
+                      return a.concat(branch.body)
+                    }, [])
+                  }).transform(compressor)
+                } else if (node instanceof AST_If || node instanceof AST_Try) {
+                  var save = in_if
+                  in_if = !in_block
+                  descend(node, this)
+                  in_if = save
+                  return node
+                } else if (node instanceof AST_StatementWithBody || node instanceof AST_Switch) {
+                  var save = in_block
+                  in_block = true
+                  descend(node, this)
+                  in_block = save
+                  return node
+                } else if (node instanceof AST_Break && this.loopcontrol_target(node.label) === self) {
+                  if (in_if) {
+                    ruined = true
                     return node
-                  } else if (node instanceof AST_StatementWithBody || node instanceof AST_Switch) {
-            var save = in_block
-            in_block = true
-            descend(node, this)
-            in_block = save
-            return node
-          } else if (node instanceof AST_Break && this.loopcontrol_target(node.label) === self) {
-            if (in_if) {
-        ruined = true
-        return node
-      }
-            if (in_block) return node
-            stopped = true
-            return in_list ? MAP.skip : make_node(AST_EmptyStatement, node)
-          } else if (node instanceof AST_SwitchBranch && this.parent() === self) {
-      if (stopped) return MAP.skip
-      if (node instanceof AST_Case) {
-                  var exp = node.expression.evaluate(compressor)
-                  if (exp.length < 2) {
+                  }
+                  if (in_block) return node
+                  stopped = true
+                  return in_list ? MAP.skip : make_node(AST_EmptyStatement, node)
+                } else if (node instanceof AST_SwitchBranch && this.parent() === self) {
+                  if (stopped) return MAP.skip
+                  if (node instanceof AST_Case) {
+                    var exp = node.expression.evaluate(compressor)
+                    if (exp.length < 2) {
                             // got a case with non-constant expression, baling out
-                    throw self
+                      throw self
+                    }
+                    if (exp[1] === value || started) {
+                      started = true
+                      if (aborts(node)) stopped = true
+                      descend(node, this)
+                      return node
+                    }
+                    return MAP.skip
                   }
-                  if (exp[1] === value || started) {
-                    started = true
-                    if (aborts(node)) stopped = true
-                    descend(node, this)
-                    return node
-                  }
-                  return MAP.skip
+                  descend(node, this)
+                  return node
                 }
-      descend(node, this)
-      return node
-    }
               })
               tt.stack = compressor.stack.slice() // so that's able to see parent nodes
               self = self.transform(tt)
@@ -21660,53 +21658,53 @@ var requirejs, require, define, xpcUtil;
                 case 'Array':
                   if (self.args.length != 1) {
                     return make_node(AST_Array, self, {
-                        elements: self.args
-                      }).transform(compressor)
+                      elements: self.args
+                    }).transform(compressor)
                   }
                   break
                 case 'Object':
                   if (self.args.length == 0) {
                     return make_node(AST_Object, self, {
-                        properties: []
-                      })
+                      properties: []
+                    })
                   }
                   break
                 case 'String':
                   if (self.args.length == 0) {
                     return make_node(AST_String, self, {
-                        value: ''
-                      })
+                      value: ''
+                    })
                   }
                   if (self.args.length <= 1) {
                     return make_node(AST_Binary, self, {
-                        left: self.args[0],
-                        operator: '+',
-                        right: make_node(AST_String, self, { value: '' })
-                      }).transform(compressor)
+                      left: self.args[0],
+                      operator: '+',
+                      right: make_node(AST_String, self, { value: '' })
+                    }).transform(compressor)
                   }
                   break
                 case 'Number':
                   if (self.args.length == 0) {
                     return make_node(AST_Number, self, {
-                        value: 0
-                      })
+                      value: 0
+                    })
                   }
                   if (self.args.length == 1) {
                     return make_node(AST_UnaryPrefix, self, {
-                        expression: self.args[0],
-                        operator: '+'
-                      }).transform(compressor)
+                      expression: self.args[0],
+                      operator: '+'
+                    }).transform(compressor)
                   }
                 case 'Boolean':
                   if (self.args.length == 0) return make_node(AST_False, self)
                   if (self.args.length == 1) {
                     return make_node(AST_UnaryPrefix, self, {
-                        expression: make_node(AST_UnaryPrefix, null, {
-                          expression: self.args[0],
-                          operator: '!'
-                        }),
+                      expression: make_node(AST_UnaryPrefix, null, {
+                        expression: self.args[0],
                         operator: '!'
-                      }).transform(compressor)
+                      }),
+                      operator: '!'
+                    }).transform(compressor)
                   }
                   break
                 case 'Function':
@@ -21715,49 +21713,49 @@ var requirejs, require, define, xpcUtil;
                         //   https://github.com/mishoo/UglifyJS2/issues/203
                         // if the code argument is a constant, then we can minify it.
                     try {
-                        var code = '(function(' + self.args.slice(0, -1).map(function (arg) {
-                          return arg.value
-                        }).join(',') + '){' + self.args[self.args.length - 1].value + '})()'
-                        var ast = parse(code)
-                        ast.figure_out_scope({ screw_ie8: compressor.option('screw_ie8') })
-                        var comp = new Compressor(compressor.options)
-                        ast = ast.transform(comp)
-                        ast.figure_out_scope({ screw_ie8: compressor.option('screw_ie8') })
-                        ast.mangle_names()
-                        var fun
-                        try {
-                          ast.walk(new TreeWalker(function (node) {
-                    if (node instanceof AST_Lambda) {
-                      fun = node
-                      throw ast
-                    }
-                  }))
-                        } catch (ex) {
-                          if (ex !== ast) throw ex
-                        };
-                        if (!fun) return self
-                        var args = fun.argnames.map(function (arg, i) {
-                          return make_node(AST_String, self.args[i], {
-                    value: arg.print_to_string()
-                  })
-                        })
-                        var code = OutputStream()
-                        AST_BlockStatement.prototype._codegen.call(fun, fun, code)
-                        code = code.toString().replace(/^\{|\}$/g, '')
-                        args.push(make_node(AST_String, self.args[self.args.length - 1], {
-                          value: code
+                      var code = '(function(' + self.args.slice(0, -1).map(function (arg) {
+                        return arg.value
+                      }).join(',') + '){' + self.args[self.args.length - 1].value + '})()'
+                      var ast = parse(code)
+                      ast.figure_out_scope({ screw_ie8: compressor.option('screw_ie8') })
+                      var comp = new Compressor(compressor.options)
+                      ast = ast.transform(comp)
+                      ast.figure_out_scope({ screw_ie8: compressor.option('screw_ie8') })
+                      ast.mangle_names()
+                      var fun
+                      try {
+                        ast.walk(new TreeWalker(function (node) {
+                          if (node instanceof AST_Lambda) {
+                            fun = node
+                            throw ast
+                          }
                         }))
-                        self.args = args
-                        return self
                       } catch (ex) {
-                        if (ex instanceof JS_Parse_Error) {
-                          compressor.warn('Error parsing code passed to new Function [{file}:{line},{col}]', self.args[self.args.length - 1].start)
-                          compressor.warn(ex.toString())
-                        } else {
-                          console.log(ex)
-                          throw ex
-                        }
+                        if (ex !== ast) throw ex
+                      };
+                      if (!fun) return self
+                      var args = fun.argnames.map(function (arg, i) {
+                        return make_node(AST_String, self.args[i], {
+                          value: arg.print_to_string()
+                        })
+                      })
+                      var code = OutputStream()
+                      AST_BlockStatement.prototype._codegen.call(fun, fun, code)
+                      code = code.toString().replace(/^\{|\}$/g, '')
+                      args.push(make_node(AST_String, self.args[self.args.length - 1], {
+                        value: code
+                      }))
+                      self.args = args
+                      return self
+                    } catch (ex) {
+                      if (ex instanceof JS_Parse_Error) {
+                        compressor.warn('Error parsing code passed to new Function [{file}:{line},{col}]', self.args[self.args.length - 1].start)
+                        compressor.warn(ex.toString())
+                      } else {
+                        console.log(ex)
+                        throw ex
                       }
+                    }
                   }
                   break
               }
@@ -21769,52 +21767,52 @@ var requirejs, require, define, xpcUtil;
               }).transform(compressor)
             } else if (exp instanceof AST_Dot && exp.expression instanceof AST_Array && exp.property == 'join') {
               EXIT: {
-                  var separator = self.args.length == 0 ? ',' : self.args[0].evaluate(compressor)[1]
-                  if (separator == null) break EXIT // not a constant
-                  var elements = exp.expression.elements.reduce(function (a, el) {
-                    el = el.evaluate(compressor)
-                    if (a.length == 0 || el.length == 1) {
-              a.push(el)
-            } else {
-              var last = a[a.length - 1]
-              if (last.length == 2) {
+                var separator = self.args.length == 0 ? ',' : self.args[0].evaluate(compressor)[1]
+                if (separator == null) break EXIT // not a constant
+                var elements = exp.expression.elements.reduce(function (a, el) {
+                  el = el.evaluate(compressor)
+                  if (a.length == 0 || el.length == 1) {
+                    a.push(el)
+                  } else {
+                    var last = a[a.length - 1]
+                    if (last.length == 2) {
                             // it's a constant
-                var val = '' + last[1] + separator + el[1]
-                a[a.length - 1] = [ make_node_from_constant(compressor, val, last[0]), val ]
-              } else {
-                a.push(el)
-              }
-            }
-                    return a
-                  }, [])
-                  if (elements.length == 0) return make_node(AST_String, self, { value: '' })
-                  if (elements.length == 1) return elements[0][0]
-                  if (separator == '') {
-                    var first
-                    if (elements[0][0] instanceof AST_String ||
-                        elements[1][0] instanceof AST_String) {
-              first = elements.shift()[0]
-            } else {
-              first = make_node(AST_String, self, { value: '' })
-            }
-                    return elements.reduce(function (prev, el) {
-              return make_node(AST_Binary, el[0], {
-                operator: '+',
-                left: prev,
-                right: el[0]
-              })
-            }, first).transform(compressor)
+                      var val = '' + last[1] + separator + el[1]
+                      a[a.length - 1] = [ make_node_from_constant(compressor, val, last[0]), val ]
+                    } else {
+                      a.push(el)
+                    }
                   }
+                  return a
+                }, [])
+                if (elements.length == 0) return make_node(AST_String, self, { value: '' })
+                if (elements.length == 1) return elements[0][0]
+                if (separator == '') {
+                  var first
+                  if (elements[0][0] instanceof AST_String ||
+                        elements[1][0] instanceof AST_String) {
+                    first = elements.shift()[0]
+                  } else {
+                    first = make_node(AST_String, self, { value: '' })
+                  }
+                  return elements.reduce(function (prev, el) {
+                    return make_node(AST_Binary, el[0], {
+                      operator: '+',
+                      left: prev,
+                      right: el[0]
+                    })
+                  }, first).transform(compressor)
+                }
                 // need this awkward cloning to not affect original element
                 // best_of will decide which one to get through.
-                  var node = self.clone()
-                  node.expression = node.expression.clone()
-                  node.expression.expression = node.expression.expression.clone()
-                  node.expression.expression.elements = elements.map(function (el) {
-                    return el[0]
-                  })
-                  return best_of(self, node)
-                }
+                var node = self.clone()
+                node.expression = node.expression.clone()
+                node.expression.expression = node.expression.expression.clone()
+                node.expression.expression.elements = elements.map(function (el) {
+                  return el[0]
+                })
+                return best_of(self, node)
+              }
             }
           }
           if (compressor.option('side_effects')) {
@@ -22122,10 +22120,10 @@ var requirejs, require, define, xpcUtil;
                 self = make_node(AST_Binary, self, {
                   operator: '+',
                   left: make_node(AST_String, null, {
-                      value: '' + self.left.getValue() + self.right.left.getValue(),
-                      start: self.left.start,
-                      end: self.right.left.end
-                    }),
+                    value: '' + self.left.getValue() + self.right.left.getValue(),
+                    start: self.left.start,
+                    end: self.right.left.end
+                  }),
                   right: self.right.right
                 })
               }
@@ -22138,10 +22136,10 @@ var requirejs, require, define, xpcUtil;
                   operator: '+',
                   left: self.left.left,
                   right: make_node(AST_String, null, {
-                      value: '' + self.left.right.getValue() + self.right.getValue(),
-                      start: self.left.right.start,
-                      end: self.right.end
-                    })
+                    value: '' + self.left.right.getValue() + self.right.getValue(),
+                    start: self.left.right.start,
+                    end: self.right.end
+                  })
                 })
               }
               if (self.left instanceof AST_Binary &&
@@ -22155,14 +22153,14 @@ var requirejs, require, define, xpcUtil;
                 self = make_node(AST_Binary, self, {
                   operator: '+',
                   left: make_node(AST_Binary, self.left, {
-                      operator: '+',
-                      left: self.left.left,
-                      right: make_node(AST_String, null, {
-                        value: '' + self.left.right.getValue() + self.right.left.getValue(),
-                        start: self.left.right.start,
-                        end: self.right.left.end
-                      })
-                    }),
+                    operator: '+',
+                    left: self.left.left,
+                    right: make_node(AST_String, null, {
+                      value: '' + self.left.right.getValue() + self.right.left.getValue(),
+                      start: self.left.right.start,
+                      end: self.right.left.end
+                    })
+                  }),
                   right: self.right.right
                 })
               }
@@ -23791,11 +23789,11 @@ var requirejs, require, define, xpcUtil;
               arg = node[argPropName] && node[argPropName][0]
               if (arg && (arg.type === 'ObjectExpression' ||
                             arg.type === 'ArrayExpression')) {
-                  type = callName
-                }
-            } else if (parse.hasDefine(node)) {
-                type = 'define'
+                type = callName
               }
+            } else if (parse.hasDefine(node)) {
+              type = 'define'
+            }
           }
 
           if (type) {
@@ -23835,26 +23833,26 @@ var requirejs, require, define, xpcUtil;
                     exp.left.type === 'MemberExpression' && exp.left.object) {
             if (exp.left.object.name === 'module' && exp.left.property &&
                         exp.left.property.name === 'exports') {
-                type = 'moduleExports'
-              } else if (exp.left.object.name === 'exports' &&
+              type = 'moduleExports'
+            } else if (exp.left.object.name === 'exports' &&
                         exp.left.property) {
-                type = 'exports'
-              }
+              type = 'exports'
+            }
           } else if (node && node.type === 'CallExpression' && node.callee &&
                     node.callee.type === 'Identifier' &&
                     node.callee.name === 'require' && node[argPropName] &&
                     node[argPropName].length === 1 &&
                     node[argPropName][0].type === 'Literal') {
-              type = 'require'
-            }
+            type = 'require'
+          }
 
           if (type) {
             if (type === 'varExports') {
               assignsExports = true
             } else if (type !== 'exports' || !assignsExports) {
               if (!uses) {
-                  uses = {}
-                }
+                uses = {}
+              }
               uses[type] = true
             }
           }
@@ -23930,8 +23928,8 @@ var requirejs, require, define, xpcUtil;
             name = deps = null
           } else if (name.type !== 'Literal') {
                  // An object literal, just null out
-              name = deps = factory = null
-            }
+            name = deps = factory = null
+          }
 
           if (name && name.type === 'Literal' && deps) {
             if (deps.type === 'FunctionExpression') {
@@ -23940,11 +23938,11 @@ var requirejs, require, define, xpcUtil;
               deps = null
             } else if (deps.type === 'ObjectExpression') {
                     // deps is object literal, null out
-                deps = factory = null
-              } else if (deps.type === 'Identifier' && args.length === 2) {
+              deps = factory = null
+            } else if (deps.type === 'Identifier' && args.length === 2) {
                     // define('id', factory)
-                deps = factory = null
-              }
+              deps = factory = null
+            }
           }
 
           if (deps && deps.type === 'ArrayExpression') {
@@ -23954,12 +23952,12 @@ var requirejs, require, define, xpcUtil;
                 // wrapper, scan the function for dependencies.
             cjsDeps = parse.getAnonDepsFromNode(factory)
             if (cjsDeps.length) {
-                deps = cjsDeps
-              }
+              deps = cjsDeps
+            }
           } else if (deps || factory) {
                 // Does not match the shape of an AMD call.
-              return
-            }
+            return
+          }
 
             // Just save off the name as a string instead of an AST object.
           if (name && name.type === 'Literal') {
@@ -23986,18 +23984,18 @@ var requirejs, require, define, xpcUtil;
                     exp.expression.arguments[0].type === 'Identifier') {
                     // Calls define(Identifier) as first statement in body.
                     // Confirm the if test references define.amd
-                traverse(bodyNode.test, function (node) {
-                  if (parse.refsDefineAmd(node)) {
-                    refsDefine = true
-                    return false
-                  }
-                })
-
-                if (refsDefine) {
-                  return onMatch('define', null, null, null, exp.expression,
-                                       exp.expression.arguments[0].name, fnExpScope)
+              traverse(bodyNode.test, function (node) {
+                if (parse.refsDefineAmd(node)) {
+                  refsDefine = true
+                  return false
                 }
+              })
+
+              if (refsDefine) {
+                return onMatch('define', null, null, null, exp.expression,
+                                       exp.expression.arguments[0].name, fnExpScope)
               }
+            }
           }
         }
       }
@@ -24079,13 +24077,13 @@ var requirejs, require, define, xpcUtil;
                   if (subNode.type === 'Line' &&
                                     subNode.range[0] === refNode.range[1] + 1) {
                                 // Adjacent single line comment. Collect it.
-                      value += '//' + subNode.value + lineEnd
-                      refNode = subNode
-                    } else {
+                    value += '//' + subNode.value + lineEnd
+                    refNode = subNode
+                  } else {
                                 // No more single line comment blocks. Break out
                                 // and continue outer looping.
-                      break
-                    }
+                    break
+                  }
                 }
                 value += lineEnd
                 i = j - 1
@@ -24239,16 +24237,16 @@ function (esprima, parse, logger, lang) {
                                    firstArg.argument.type === 'Literal' &&
                                    typeof firstArg.argument.value === 'number') {
                             // define('-12345');
-                needsId = true
-                depAction = 'skip'
-              } else if (firstArg.type === 'MemberExpression' &&
+              needsId = true
+              depAction = 'skip'
+            } else if (firstArg.type === 'MemberExpression' &&
                                    firstArg.object &&
                                    firstArg.property &&
                                    firstArg.property.type === 'Identifier') {
                             // define(this.key);
-                  needsId = true
-                  depAction = 'empty'
-                }
+              needsId = true
+              depAction = 'empty'
+            }
           } else if (firstArg.type === 'ArrayExpression') {
                         // define([], ...);
             needsId = true
@@ -24747,8 +24745,8 @@ function (esprima, parse, logger, lang) {
                             // Find the next line return based on the match position.
                   lineEndIndex = fileContents.indexOf('\n', endMarkerIndex)
                   if (lineEndIndex === -1) {
-                      lineEndIndex = fileContents.length - 1
-                    }
+                    lineEndIndex = fileContents.length - 1
+                  }
 
                             // Should we include the segment?
                   shouldInclude = ((type === 'exclude' && !isTrue) || (type === 'include' && isTrue))
@@ -24784,13 +24782,13 @@ function (esprima, parse, logger, lang) {
                 for (i = 0; i < deps.length; i++) {
                   dep = deps[i]
                   if (dep.indexOf('!') !== -1) {
-                      moduleName = dep.split('!')[0]
-                      collectorMod = pluginCollector[moduleName]
-                      if (!collectorMod) {
-                        collectorMod = pluginCollector[moduleName] = []
-                      }
-                      collectorMod.push(dep)
+                    moduleName = dep.split('!')[0]
+                    collectorMod = pluginCollector[moduleName]
+                    if (!collectorMod) {
+                      collectorMod = pluginCollector[moduleName] = []
                     }
+                    collectorMod.push(dep)
+                  }
                 }
               }
             } catch (eDep) {
@@ -25662,18 +25660,18 @@ function (lang, logger, envOptimize, file, parse,
                             // where the function closure would hide that from
                             // the global object.
                   if (value.exports && value.exports.indexOf('.') === -1) {
-                      str += 'root.' + value.exports + ' = '
-                    }
+                    str += 'root.' + value.exports + ' = '
+                  }
 
                   if (value.init) {
-                      str += '(' + value.init.toString() + '.apply(this, arguments))'
-                    }
+                    str += '(' + value.init.toString() + '.apply(this, arguments))'
+                  }
                   if (value.init && value.exports) {
-                      str += ' || '
-                    }
+                    str += ' || '
+                  }
                   if (value.exports) {
-                      str += value.exports
-                    }
+                    str += value.exports
+                  }
                   str += ';'
                   return str
                 }
@@ -25752,118 +25750,118 @@ function (lang, logger, envOptimize, file, parse,
                   if (hasProp(require._cachedFileContents, url) &&
                                     (falseProp(context.needFullExec, moduleName) ||
                                     getOwn(context.fullExec, moduleName))) {
-                      contents = require._cachedFileContents[url]
+                    contents = require._cachedFileContents[url]
 
                                 // If it defines require, mark it so it can be hoisted.
                                 // Done here and in the else below, before the
                                 // else block removes code from the contents.
                                 // Related to #263
-                      if (!layer.existingRequireUrl && require._cachedDefinesRequireUrls[url]) {
-                        layer.existingRequireUrl = url
-                      }
-                    } else {
+                    if (!layer.existingRequireUrl && require._cachedDefinesRequireUrls[url]) {
+                      layer.existingRequireUrl = url
+                    }
+                  } else {
                                 // Load the file contents, process for conditionals, then
                                 // evaluate it.
-                      return require._cacheReadAsync(url).then(function (text) {
-                        contents = text
+                    return require._cacheReadAsync(url).then(function (text) {
+                      contents = text
 
-                        if (context.config.cjsTranslate &&
+                      if (context.config.cjsTranslate &&
                                         (!context.config.shim || !lang.hasProp(context.config.shim, moduleName))) {
-                      contents = commonJs.convert(url, contents)
-                    }
+                        contents = commonJs.convert(url, contents)
+                      }
 
                                     // If there is a read filter, run it now.
-                        if (context.config.onBuildRead) {
-                      contents = context.config.onBuildRead(moduleName, url, contents)
-                    }
+                      if (context.config.onBuildRead) {
+                        contents = context.config.onBuildRead(moduleName, url, contents)
+                      }
 
-                        contents = pragma.process(url, contents, context.config, 'OnExecute')
+                      contents = pragma.process(url, contents, context.config, 'OnExecute')
 
                                     // Find out if the file contains a require() definition. Need to know
                                     // this so we can inject plugins right after it, but before they are needed,
                                     // and to make sure this file is first, so that define calls work.
-                        try {
-                      if (!layer.existingRequireUrl && parse.definesRequire(url, contents)) {
-                            layer.existingRequireUrl = url
-                            require._cachedDefinesRequireUrls[url] = true
-                          }
-                    } catch (e1) {
-                      throw new Error('Parse error using esprima ' +
+                      try {
+                        if (!layer.existingRequireUrl && parse.definesRequire(url, contents)) {
+                          layer.existingRequireUrl = url
+                          require._cachedDefinesRequireUrls[url] = true
+                        }
+                      } catch (e1) {
+                        throw new Error('Parse error using esprima ' +
                                                         'for file: ' + url + '\n' + e1)
-                    }
-                      }).then(function () {
-                    if (hasProp(context.plugins, moduleName)) {
+                      }
+                    }).then(function () {
+                      if (hasProp(context.plugins, moduleName)) {
                                         // This is a loader plugin, check to see if it has a build extension,
                                         // otherwise the plugin will act as the plugin builder too.
-                          pluginBuilderMatch = pluginBuilderRegExp.exec(contents)
-                          if (pluginBuilderMatch) {
+                        pluginBuilderMatch = pluginBuilderRegExp.exec(contents)
+                        if (pluginBuilderMatch) {
                                             // Load the plugin builder for the plugin contents.
-                            builderName = context.makeModuleMap(pluginBuilderMatch[3],
+                          builderName = context.makeModuleMap(pluginBuilderMatch[3],
                                                                                 context.makeModuleMap(moduleName),
                                                                                 null,
                                                                                 true).id
-                            return require._cacheReadAsync(context.nameToUrl(builderName))
-                          }
+                          return require._cacheReadAsync(context.nameToUrl(builderName))
                         }
-                    return contents
-                  }).then(function (text) {
-                        contents = text
+                      }
+                      return contents
+                    }).then(function (text) {
+                      contents = text
 
                                     // Parse out the require and define calls.
                                     // Do this even for plugins in case they have their own
                                     // dependencies that may be separate to how the pluginBuilder works.
-                        try {
-                          if (falseProp(context.needFullExec, moduleName)) {
-                            contents = parse(moduleName, url, contents, {
-                                insertNeedsDefine: true,
-                                has: context.config.has,
-                                findNestedDependencies: context.config.findNestedDependencies
-                              })
-                          }
-                        } catch (e2) {
-                          throw new Error('Parse error using esprima ' +
-                                                        'for file: ' + url + '\n' + e2)
+                      try {
+                        if (falseProp(context.needFullExec, moduleName)) {
+                          contents = parse(moduleName, url, contents, {
+                            insertNeedsDefine: true,
+                            has: context.config.has,
+                            findNestedDependencies: context.config.findNestedDependencies
+                          })
                         }
+                      } catch (e2) {
+                        throw new Error('Parse error using esprima ' +
+                                                        'for file: ' + url + '\n' + e2)
+                      }
 
-                        require._cachedFileContents[url] = contents
-                      })
-                    }
+                      require._cachedFileContents[url] = contents
+                    })
+                  }
                 }).then(function () {
-                    if (contents) {
-                      eval(contents)
-                    }
+                  if (contents) {
+                    eval(contents)
+                  }
 
-                    try {
+                  try {
                                 // If have a string shim config, and this is
                                 // a fully executed module, try to see if
                                 // it created a variable in this eval scope
-                      if (getOwn(context.needFullExec, moduleName)) {
-                    shim = getOwn(context.config.shim, moduleName)
-                    if (shim && shim.exports) {
-                          shimExports = eval(shim.exports)
-                          if (typeof shimExports !== 'undefined') {
-                            context.buildShimExports[moduleName] = shimExports
-                          }
+                    if (getOwn(context.needFullExec, moduleName)) {
+                      shim = getOwn(context.config.shim, moduleName)
+                      if (shim && shim.exports) {
+                        shimExports = eval(shim.exports)
+                        if (typeof shimExports !== 'undefined') {
+                          context.buildShimExports[moduleName] = shimExports
                         }
-                  }
+                      }
+                    }
 
                                 // Need to close out completion of this module
                                 // so that listeners will get notified that it is available.
-                      context.completeLoad(moduleName)
-                    } catch (e) {
+                    context.completeLoad(moduleName)
+                  } catch (e) {
                                 // Track which module could not complete loading.
-                      if (!e.moduleTree) {
-                    e.moduleTree = []
-                  }
-                      e.moduleTree.push(moduleName)
-                      throw e
+                    if (!e.moduleTree) {
+                      e.moduleTree = []
                     }
-                  }).then(null, function (eOuter) {
-                    if (!eOuter.fileName) {
-                  eOuter.fileName = url
-                }
-                    throw eOuter
-                  }).end()
+                    e.moduleTree.push(moduleName)
+                    throw e
+                  }
+                }).then(null, function (eOuter) {
+                  if (!eOuter.fileName) {
+                    eOuter.fileName = url
+                  }
+                  throw eOuter
+                }).end()
               } else {
                         // With unsupported URLs still need to call completeLoad to
                         // finish loading.
@@ -25888,13 +25886,13 @@ function (lang, logger, envOptimize, file, parse,
               if (context.needFullExec[this.map.id]) {
                 lang.each(depMaps, lang.bind(this, function (depMap) {
                   if (typeof depMap === 'string') {
-                      depMap = context.makeModuleMap(depMap,
+                    depMap = context.makeModuleMap(depMap,
                                                (this.map.isDefine ? this.map : this.map.parentMap))
-                    }
+                  }
 
                   if (!context.fullExec[depMap.id]) {
-                      context.require.undef(depMap.id)
-                    }
+                    context.require.undef(depMap.id)
+                  }
                 }))
               }
 
@@ -26322,8 +26320,8 @@ function (lang, logger, envOptimize, file, parse,
               errorMod = errorTree[i]
               if (errorMod) {
                 for (j = errorTree.length - i; j > -1; j--) {
-                    errorMsg += standardIndent
-                  }
+                  errorMsg += standardIndent
+                }
                 errorMsg += errorMod + '\n'
               }
             }
@@ -26404,33 +26402,33 @@ function (lang, logger, envOptimize, file, parse,
                             // Set up build path for each path prefix, but only do so
                             // if the path falls out of the current baseUrl
                   if (paths[prop].indexOf(config.baseUrl) === 0) {
-                      buildPaths[prop] = paths[prop].replace(config.baseUrl, config.dirBaseUrl)
-                    } else {
-                      buildPaths[prop] = paths[prop] === 'empty:' ? 'empty:' : prop.replace(/\./g, '/')
+                    buildPaths[prop] = paths[prop].replace(config.baseUrl, config.dirBaseUrl)
+                  } else {
+                    buildPaths[prop] = paths[prop] === 'empty:' ? 'empty:' : prop.replace(/\./g, '/')
 
                                 // Make sure source path is fully formed with baseUrl,
                                 // if it is a relative URL.
-                      srcPath = paths[prop]
-                      if (srcPath.indexOf('/') !== 0 && srcPath.indexOf(':') === -1) {
-                        srcPath = config.baseUrl + srcPath
-                      }
+                    srcPath = paths[prop]
+                    if (srcPath.indexOf('/') !== 0 && srcPath.indexOf(':') === -1) {
+                      srcPath = config.baseUrl + srcPath
+                    }
 
-                      destPath = config.dirBaseUrl + buildPaths[prop]
+                    destPath = config.dirBaseUrl + buildPaths[prop]
 
                                 // Skip empty: paths
-                      if (srcPath !== 'empty:') {
+                    if (srcPath !== 'empty:') {
                                     // If the srcPath is a directory, copy the whole directory.
-                        if (file.exists(srcPath) && file.isDirectory(srcPath)) {
+                      if (file.exists(srcPath) && file.isDirectory(srcPath)) {
                                         // Copy files to build area. Copy all files (the /\w/ regexp)
-                      file.copyDir(srcPath, destPath, /\w/, true)
-                    } else {
+                        file.copyDir(srcPath, destPath, /\w/, true)
+                      } else {
                                         // Try a .js extension
-                      srcPath += '.js'
-                      destPath += '.js'
-                      file.copyFile(srcPath, destPath)
-                    }
+                        srcPath += '.js'
+                        destPath += '.js'
+                        file.copyFile(srcPath, destPath)
                       }
                     }
+                  }
                 }
               }
             }
@@ -26489,23 +26487,23 @@ function (lang, logger, envOptimize, file, parse,
             if (modules) {
               modules.forEach(function (module) {
                 if (module.name) {
-                    module._buildPath = buildContext.nameToUrl(module.name, null)
+                  module._buildPath = buildContext.nameToUrl(module.name, null)
 
                             // If buildPath and sourcePath are the same, throw since this
                             // would result in modifying source. This condition can happen
                             // with some more tricky paths: config and appDir/baseUrl
                             // setting, which is a sign of incorrect config.
-                    if (module._buildPath === module._sourcePath) {
-                      throw new Error('Module ID \'' + module.name +
+                  if (module._buildPath === module._sourcePath) {
+                    throw new Error('Module ID \'' + module.name +
                                                 '\' has a source path that is same as output path: ' +
                                                 module._sourcePath +
                                                 '. Stopping, config is malformed.')
-                    }
-
-                    if (!module.create) {
-                      file.copyFile(module._sourcePath, module._buildPath)
-                    }
                   }
+
+                  if (!module.create) {
+                    file.copyFile(module._sourcePath, module._buildPath)
+                  }
+                }
               })
             }
           }
@@ -26526,14 +26524,14 @@ function (lang, logger, envOptimize, file, parse,
               return function () {
                         // Save off buildPath to module index in a hash for quicker
                         // lookup later.
-                  config._buildPathToModuleIndex[file.normalize(module._buildPath)] = i
+                config._buildPathToModuleIndex[file.normalize(module._buildPath)] = i
 
                         // Call require to calculate dependencies.
-                  return build.traceDependencies(module, config, baseConfig)
+                return build.traceDependencies(module, config, baseConfig)
                             .then(function (layer) {
                               module.layer = layer
                             })
-                }
+              }
             })
 
             return prim.serial(actions)
@@ -26546,10 +26544,10 @@ function (lang, logger, envOptimize, file, parse,
                 // Do this after tracing dependencies for each module, in case one
                 // of those modules end up being one of the excluded values.
             actions = modules.map(function (module) {
-                return function () {
-                  if (module.exclude) {
-                module.excludeLayers = []
-                return prim.serial(module.exclude.map(function (exclude, i) {
+              return function () {
+                if (module.exclude) {
+                  module.excludeLayers = []
+                  return prim.serial(module.exclude.map(function (exclude, i) {
                     return function () {
                                     // See if it is already in the list of modules.
                                     // If not trace dependencies for it.
@@ -26564,17 +26562,17 @@ function (lang, logger, envOptimize, file, parse,
                       }
                     }
                   }))
-              }
                 }
-              })
+              }
+            })
 
             return prim.serial(actions)
           }
         }).then(function () {
           if (modules) {
-              return prim.serial(modules.map(function (module) {
-                return function () {
-              if (module.exclude) {
+            return prim.serial(modules.map(function (module) {
+              return function () {
+                if (module.exclude) {
                             // module.exclude is an array of module names. For each one,
                             // get the nested dependencies for it via a matching entry
                             // in the module.excludeLayers array.
@@ -26586,7 +26584,7 @@ function (lang, logger, envOptimize, file, parse,
                     })
                   })
                 }
-              if (module.excludeShallow) {
+                if (module.excludeShallow) {
                             // module.excludeShallow is an array of module names.
                             // shallow exclusions are just that module itself, and not
                             // its nested dependencies.
@@ -26599,7 +26597,7 @@ function (lang, logger, envOptimize, file, parse,
                 }
 
                         // Flatten them and collect the build output for each module.
-              return build.flattenModule(module, module.layer, config).then(function (builtModule) {
+                return build.flattenModule(module, module.layer, config).then(function (builtModule) {
                   var finalText, baseName
                             // Save it to a temp file for now, in case there are other layers that
                             // contain optimized content that should not be included in later
@@ -26619,16 +26617,16 @@ function (lang, logger, envOptimize, file, parse,
                   }
                   buildFileContents += builtModule.buildText
                 })
-            }
-              }))
-            }
+              }
+            }))
+          }
         }).then(function () {
-            var moduleName, outOrigSourceMap
-            if (modules) {
+          var moduleName, outOrigSourceMap
+          if (modules) {
                 // Now move the build layers to their final position.
-              modules.forEach(function (module) {
-            var finalPath = module._buildPath
-            if (finalPath !== 'FUNCTION') {
+            modules.forEach(function (module) {
+              var finalPath = module._buildPath
+              if (finalPath !== 'FUNCTION') {
                 if (file.exists(finalPath)) {
                   file.deleteFile(finalPath)
                 }
@@ -26656,44 +26654,44 @@ function (lang, logger, envOptimize, file, parse,
               }
 
                     // Signal layer is done
-            if (config.onModuleBundleComplete) {
+              if (config.onModuleBundleComplete) {
                 config.onModuleBundleComplete(module.onCompleteData)
               }
-          })
-            }
+            })
+          }
 
             // If removeCombined in play, remove any empty directories that
             // may now exist because of its use
-            if (config.removeCombined && !config.out && config.dir) {
-              file.deleteEmptyDirs(config.dir)
-            }
+          if (config.removeCombined && !config.out && config.dir) {
+            file.deleteEmptyDirs(config.dir)
+          }
 
             // Do other optimizations.
-            if (config.out && !config.cssIn) {
+          if (config.out && !config.cssIn) {
                 // Just need to worry about one JS file.
-              fileName = config.modules[0]._buildPath
-              if (fileName === 'FUNCTION') {
-            outOrigSourceMap = config.modules[0]._buildSourceMap
-            config._buildSourceMap = outOrigSourceMap
-            config.modules[0]._buildText = optimize.js((config.modules[0].name ||
+            fileName = config.modules[0]._buildPath
+            if (fileName === 'FUNCTION') {
+              outOrigSourceMap = config.modules[0]._buildSourceMap
+              config._buildSourceMap = outOrigSourceMap
+              config.modules[0]._buildText = optimize.js((config.modules[0].name ||
                                                                 config.modules[0].include[0] ||
                                                                 fileName) + '.build.js',
                                                                config.modules[0]._buildText,
                                                                null,
                                                                config)
-            if (config._buildSourceMap && config._buildSourceMap !== outOrigSourceMap) {
+              if (config._buildSourceMap && config._buildSourceMap !== outOrigSourceMap) {
                 config.modules[0]._buildSourceMap = config._buildSourceMap
                 config._buildSourceMap = null
               }
-          } else {
-            optimize.jsFile(fileName, null, fileName, config)
-          }
-            } else if (!config.cssIn) {
+            } else {
+              optimize.jsFile(fileName, null, fileName, config)
+            }
+          } else if (!config.cssIn) {
                 // Normal optimizations across modules.
 
                 // JS optimizations.
-          fileNames = file.getFilteredFileList(config.dir, /\.js$/, true)
-          fileNames.forEach(function (fileName) {
+            fileNames = file.getFilteredFileList(config.dir, /\.js$/, true)
+            fileNames.forEach(function (fileName) {
               var cfg, override, moduleIndex
 
                     // Generate the module name from the config.dir root.
@@ -26766,9 +26764,9 @@ function (lang, logger, envOptimize, file, parse,
             })
 
                 // Normalize all the plugin resources.
-          context = require.s.contexts._
+            context = require.s.contexts._
 
-          for (moduleName in pluginCollector) {
+            for (moduleName in pluginCollector) {
               if (hasProp(pluginCollector, moduleName)) {
                 parentModuleMap = context.makeModuleMap(moduleName)
                 resources = pluginCollector[moduleName]
@@ -26823,26 +26821,26 @@ function (lang, logger, envOptimize, file, parse,
                 // console.log('PLUGIN COLLECTOR: ' + JSON.stringify(pluginCollector, null, "  "));
 
                 // All module layers are done, write out the build.txt file.
-          file.saveUtf8File(config.dir + 'build.txt', buildFileContents)
-        }
+            file.saveUtf8File(config.dir + 'build.txt', buildFileContents)
+          }
 
             // If just have one CSS file to optimize, do that here.
-            if (config.cssIn) {
-              buildFileContents += optimize.cssFile(config.cssIn, config.out, config).buildText
-            }
+          if (config.cssIn) {
+            buildFileContents += optimize.cssFile(config.cssIn, config.out, config).buildText
+          }
 
-            if (typeof config.out === 'function') {
-              config.out(config.modules[0]._buildText, config.modules[0]._buildSourceMap)
-            }
+          if (typeof config.out === 'function') {
+            config.out(config.modules[0]._buildText, config.modules[0]._buildSourceMap)
+          }
 
             // Print out what was built into which layers.
-            if (buildFileContents) {
-              logger.info(buildFileContents)
-              return buildFileContents
-            }
+          if (buildFileContents) {
+            logger.info(buildFileContents)
+            return buildFileContents
+          }
 
-            return ''
-          })
+          return ''
+        })
       }
 
     /**
@@ -27094,10 +27092,10 @@ function (lang, logger, envOptimize, file, parse,
                         // just merge the results.
                 targetValue = target[prop]
                 if (lang.isArray(targetValue)) {
-                    target[prop] = targetValue.concat(value)
-                  } else {
-                    target[prop] = value
-                  }
+                  target[prop] = targetValue.concat(value)
+                } else {
+                  target[prop] = value
+                }
               }
             } else {
               target[prop] = value
@@ -27903,90 +27901,90 @@ function (lang, logger, envOptimize, file, parse,
                 builder = parts.prefix && getOwn(context.defined, parts.prefix)
                 if (builder) {
                   if (builder.onLayerEnd && falseProp(onLayerEndAdded, parts.prefix)) {
-                      onLayerEnds.push(builder)
-                      onLayerEndAdded[parts.prefix] = true
-                    }
+                    onLayerEnds.push(builder)
+                    onLayerEndAdded[parts.prefix] = true
+                  }
 
                   if (builder.write) {
-                      writeApi = function (input) {
-                  singleContents += '\n' + addSemiColon(input, config)
-                  if (config.onBuildWrite) {
-                    singleContents = config.onBuildWrite(moduleName, path, singleContents)
-                  }
-                }
-                      writeApi.asModule = function (moduleName, input) {
-                  singleContents += '\n' +
+                    writeApi = function (input) {
+                      singleContents += '\n' + addSemiColon(input, config)
+                      if (config.onBuildWrite) {
+                        singleContents = config.onBuildWrite(moduleName, path, singleContents)
+                      }
+                    }
+                    writeApi.asModule = function (moduleName, input) {
+                      singleContents += '\n' +
                                         addSemiColon(build.toTransport(namespace, moduleName, path, input, layer, {
                                           useSourceUrl: layer.context.config.useSourceUrl
                                         }), config)
-                  if (config.onBuildWrite) {
-                    singleContents = config.onBuildWrite(moduleName, path, singleContents)
-                  }
-                }
-                      builder.write(parts.prefix, parts.name, writeApi)
+                      if (config.onBuildWrite) {
+                        singleContents = config.onBuildWrite(moduleName, path, singleContents)
+                      }
                     }
+                    builder.write(parts.prefix, parts.name, writeApi)
+                  }
                 } else {
                   return prim().start(function () {
-                      if (hasProp(stubModulesByName, moduleName)) {
+                    if (hasProp(stubModulesByName, moduleName)) {
                                     // Just want to insert a simple module definition instead
                                     // of the source module. Useful for plugins that inline
                                     // all their resources.
-                  if (hasProp(layer.context.plugins, moduleName)) {
+                      if (hasProp(layer.context.plugins, moduleName)) {
                                         // Slightly different content for plugins, to indicate
                                         // that dynamic loading will not work.
-                    return 'define({load: function(id){throw new Error("Dynamic load not allowed: " + id);}});'
-                  } else {
-                    return 'define({});'
-                  }
-                } else {
-                  return require._cacheReadAsync(path)
-                }
-                    }).then(function (text) {
-                var hasPackageName
+                        return 'define({load: function(id){throw new Error("Dynamic load not allowed: " + id);}});'
+                      } else {
+                        return 'define({});'
+                      }
+                    } else {
+                      return require._cacheReadAsync(path)
+                    }
+                  }).then(function (text) {
+                    var hasPackageName
 
-                currContents = text
+                    currContents = text
 
-                if (config.cjsTranslate &&
+                    if (config.cjsTranslate &&
                                     (!config.shim || !lang.hasProp(config.shim, moduleName))) {
-                  currContents = commonJs.convert(path, currContents)
-                }
+                      currContents = commonJs.convert(path, currContents)
+                    }
 
-                if (config.onBuildRead) {
-                  currContents = config.onBuildRead(moduleName, path, currContents)
-                }
+                    if (config.onBuildRead) {
+                      currContents = config.onBuildRead(moduleName, path, currContents)
+                    }
 
-                if (packageName) {
-                  hasPackageName = (packageName === parse.getNamedDefine(currContents))
-                }
+                    if (packageName) {
+                      hasPackageName = (packageName === parse.getNamedDefine(currContents))
+                    }
 
-                if (namespace) {
-                  currContents = pragma.namespace(currContents, namespace)
-                }
+                    if (namespace) {
+                      currContents = pragma.namespace(currContents, namespace)
+                    }
 
-                currContents = build.toTransport(namespace, moduleName, path, currContents, layer, {
-                  useSourceUrl: config.useSourceUrl
-                })
+                    currContents = build.toTransport(namespace, moduleName, path, currContents, layer, {
+                      useSourceUrl: config.useSourceUrl
+                    })
 
-                if (packageName && !hasPackageName) {
-                  currContents = addSemiColon(currContents, config) + '\n'
-                  currContents += namespaceWithDot + "define('" +
+                    if (packageName && !hasPackageName) {
+                      currContents = addSemiColon(currContents, config) + '\n'
+                      currContents += namespaceWithDot + "define('" +
                                                     packageName + "', ['" + moduleName +
                                                     "'], function (main) { return main; });\n"
-                }
+                    }
 
-                if (config.onBuildWrite) {
-                  currContents = config.onBuildWrite(moduleName, path, currContents)
-                }
+                    if (config.onBuildWrite) {
+                      currContents = config.onBuildWrite(moduleName, path, currContents)
+                    }
 
                                 // Semicolon is for files that are not well formed when
                                 // concatenated with other content.
-                singleContents += addSemiColon(currContents, config)
-              })
+                    singleContents += addSemiColon(currContents, config)
+                  })
                 }
               }).then(function () {
                 var refPath, pluginId, resourcePath,
-                    sourceMapPath, sourceMapLineNumber,
-                    shortPath = path.replace(config.dir, '')
+                  sourceMapPath, sourceMapLineNumber,
+                  shortPath = path.replace(config.dir, '')
 
                 module.onCompleteData.included.push(shortPath)
                 buildFileContents += shortPath + '\n'
@@ -27996,10 +27994,10 @@ function (lang, logger, envOptimize, file, parse,
                         // after the module is processed.
                         // If we have a name, but no defined module, then add in the placeholder.
                 if (moduleName && falseProp(layer.modulesWithNames, moduleName) && !config.skipModuleInsertion) {
-                    shim = config.shim && (getOwn(config.shim, moduleName) || (packageName && getOwn(config.shim, packageName)))
-                    if (shim) {
-                if (config.wrapShim) {
-                  singleContents = '(function(root) {\n' +
+                  shim = config.shim && (getOwn(config.shim, moduleName) || (packageName && getOwn(config.shim, packageName)))
+                  if (shim) {
+                    if (config.wrapShim) {
+                      singleContents = '(function(root) {\n' +
                                                      namespaceWithDot + 'define("' + moduleName + '", ' +
                                                      (shim.deps && shim.deps.length
                                                             ? build.makeJsArrayString(shim.deps) + ', ' : '[], ') +
@@ -28013,17 +28011,17 @@ function (lang, logger, envOptimize, file, parse,
                                                     '  }).apply(root, arguments);\n' +
                                                     '});\n' +
                                                     '}(this));\n'
-                } else {
-                  singleContents += '\n' + namespaceWithDot + 'define("' + moduleName + '", ' +
+                    } else {
+                      singleContents += '\n' + namespaceWithDot + 'define("' + moduleName + '", ' +
                                                      (shim.deps && shim.deps.length
                                                             ? build.makeJsArrayString(shim.deps) + ', ' : '') +
                                                      (shim.exportsFn ? shim.exportsFn() : 'function(){}') +
                                                      ');\n'
-                }
-              } else {
-                singleContents += '\n' + namespaceWithDot + 'define("' + moduleName + '", function(){});\n'
-              }
+                    }
+                  } else {
+                    singleContents += '\n' + namespaceWithDot + 'define("' + moduleName + '", function(){});\n'
                   }
+                }
 
                         // Add line break at end of file, instead of at beginning,
                         // so source map line numbers stay correct, but still allow
@@ -28033,48 +28031,48 @@ function (lang, logger, envOptimize, file, parse,
 
                         // Add to the source map
                 if (sourceMapGenerator) {
-                    refPath = config.out ? config.baseUrl : module._buildPath
-                    parts = path.split('!')
-                    if (parts.length === 1) {
+                  refPath = config.out ? config.baseUrl : module._buildPath
+                  parts = path.split('!')
+                  if (parts.length === 1) {
                                 // Not a plugin resource, fix the path
-                sourceMapPath = build.makeRelativeFilePath(refPath, path)
-              } else {
+                    sourceMapPath = build.makeRelativeFilePath(refPath, path)
+                  } else {
                                 // Plugin resource. If it looks like just a plugin
                                 // followed by a module ID, pull off the plugin
                                 // and put it at the end of the name, otherwise
                                 // just leave it alone.
-                pluginId = parts.shift()
-                resourcePath = parts.join('!')
-                if (resourceIsModuleIdRegExp.test(resourcePath)) {
-                  sourceMapPath = build.makeRelativeFilePath(refPath, require.toUrl(resourcePath)) +
+                    pluginId = parts.shift()
+                    resourcePath = parts.join('!')
+                    if (resourceIsModuleIdRegExp.test(resourcePath)) {
+                      sourceMapPath = build.makeRelativeFilePath(refPath, require.toUrl(resourcePath)) +
                                                     '!' + pluginId
-                } else {
-                  sourceMapPath = path
-                }
-              }
+                    } else {
+                      sourceMapPath = path
+                    }
+                  }
 
-                    sourceMapLineNumber = fileContents.split('\n').length - 1
-                    lineCount = singleContents.split('\n').length
-                    for (var i = 1; i <= lineCount; i += 1) {
-                sourceMapGenerator.addMapping({
-                  generated: {
+                  sourceMapLineNumber = fileContents.split('\n').length - 1
+                  lineCount = singleContents.split('\n').length
+                  for (var i = 1; i <= lineCount; i += 1) {
+                    sourceMapGenerator.addMapping({
+                      generated: {
                         line: sourceMapLineNumber + i,
                         column: 0
                       },
-                  original: {
+                      original: {
                         line: i,
                         column: 0
                       },
-                  source: sourceMapPath
-                })
-              }
+                      source: sourceMapPath
+                    })
+                  }
 
                             // Store the content of the original in the source
                             // map since other transforms later like minification
                             // can mess up translating back to the original
                             // source.
-                    sourceMapGenerator.setSourceContent(sourceMapPath, singleContents)
-                  }
+                  sourceMapGenerator.setSourceContent(sourceMapPath, singleContents)
+                }
 
                         // Add the file to the final contents
                 fileContents += singleContents
@@ -28085,16 +28083,16 @@ function (lang, logger, envOptimize, file, parse,
               onLayerEnds.forEach(function (builder) {
                 var path
                 if (typeof module.out === 'string') {
-                    path = module.out
-                  } else if (typeof module._buildPath === 'string') {
-              path = module._buildPath
-            }
+                  path = module.out
+                } else if (typeof module._buildPath === 'string') {
+                  path = module._buildPath
+                }
                 builder.onLayerEnd(function (input) {
-                    fileContents += '\n' + addSemiColon(input, config)
-                  }, {
-              name: module.name,
-              path: path
-            })
+                  fileContents += '\n' + addSemiColon(input, config)
+                }, {
+                  name: module.name,
+                  path: path
+                })
               })
             }
 

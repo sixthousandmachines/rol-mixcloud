@@ -4766,41 +4766,41 @@
               } else if (dependency === topLevelTypes.topFocus ||
                                 dependency === topLevelTypes.topBlur) {
                 if (isEventSupported('focus', true)) {
-              ReactBrowserEventEmitter.ReactEventListener.trapCapturedEvent(
+                  ReactBrowserEventEmitter.ReactEventListener.trapCapturedEvent(
                                       topLevelTypes.topFocus,
                                       'focus',
                                       mountAt
                                     )
-              ReactBrowserEventEmitter.ReactEventListener.trapCapturedEvent(
+                  ReactBrowserEventEmitter.ReactEventListener.trapCapturedEvent(
                                       topLevelTypes.topBlur,
                                       'blur',
                                       mountAt
                                     )
-            } else if (isEventSupported('focusin')) {
+                } else if (isEventSupported('focusin')) {
                                     // IE has `focusin` and `focusout` events which bubble.
                                     // @see http://www.quirksmode.org/blog/archives/2008/04/delegating_the.html
-                      ReactBrowserEventEmitter.ReactEventListener.trapBubbledEvent(
+                  ReactBrowserEventEmitter.ReactEventListener.trapBubbledEvent(
                                       topLevelTypes.topFocus,
                                       'focusin',
                                       mountAt
                                     )
-                      ReactBrowserEventEmitter.ReactEventListener.trapBubbledEvent(
+                  ReactBrowserEventEmitter.ReactEventListener.trapBubbledEvent(
                                       topLevelTypes.topBlur,
                                       'focusout',
                                       mountAt
                                     )
-                    }
+                }
 
                                 // to make sure blur and focus event listeners are only attached once
                 isListening[topLevelTypes.topBlur] = true
                 isListening[topLevelTypes.topFocus] = true
               } else if (topEventMapping.hasOwnProperty(dependency)) {
-            ReactBrowserEventEmitter.ReactEventListener.trapBubbledEvent(
+                ReactBrowserEventEmitter.ReactEventListener.trapBubbledEvent(
                                   dependency,
                                   topEventMapping[dependency],
                                   mountAt
                                 )
-          }
+              }
 
               isListening[dependency] = true
             }
@@ -9874,26 +9874,26 @@
               } else if (fnName === 'dangerouslyProcessChildrenUpdates') {
                                 // special format
                 args[0].forEach(function (update) {
-              var writeArgs = {}
-              if (update.fromIndex !== null) {
-                        writeArgs.fromIndex = update.fromIndex
-                      }
-              if (update.toIndex !== null) {
-                        writeArgs.toIndex = update.toIndex
-                      }
-              if (update.textContent !== null) {
-                        writeArgs.textContent = update.textContent
-                      }
-              if (update.markupIndex !== null) {
-                        writeArgs.markup = args[1][update.markupIndex]
-                      }
-              ReactDefaultPerf._recordWrite(
+                  var writeArgs = {}
+                  if (update.fromIndex !== null) {
+                    writeArgs.fromIndex = update.fromIndex
+                  }
+                  if (update.toIndex !== null) {
+                    writeArgs.toIndex = update.toIndex
+                  }
+                  if (update.textContent !== null) {
+                    writeArgs.textContent = update.textContent
+                  }
+                  if (update.markupIndex !== null) {
+                    writeArgs.markup = args[1][update.markupIndex]
+                  }
+                  ReactDefaultPerf._recordWrite(
                                       update.parentID,
                                       update.type,
                                       totalTime,
                                       writeArgs
                                     )
-            })
+                })
               } else {
                                 // basic format
                 ReactDefaultPerf._recordWrite(
@@ -9926,8 +9926,8 @@
               if (isRender) {
                 addValue(entry.counts, rootNodeID, 1)
               } else if (isMount) {
-            mountStack.push(0)
-          }
+                mountStack.push(0)
+              }
 
               start = performanceNow()
               rv = func.apply(this, args)
@@ -9936,13 +9936,13 @@
               if (isRender) {
                 addValue(entry.render, rootNodeID, totalTime)
               } else if (isMount) {
-            var subMountTime = mountStack.pop()
-            mountStack[mountStack.length - 1] += totalTime
-            addValue(entry.exclusive, rootNodeID, totalTime - subMountTime)
-            addValue(entry.inclusive, rootNodeID, totalTime)
-          } else {
-            addValue(entry.inclusive, rootNodeID, totalTime)
-          }
+                var subMountTime = mountStack.pop()
+                mountStack[mountStack.length - 1] += totalTime
+                addValue(entry.exclusive, rootNodeID, totalTime - subMountTime)
+                addValue(entry.inclusive, rootNodeID, totalTime)
+              } else {
+                addValue(entry.inclusive, rootNodeID, totalTime)
+              }
 
               entry.displayNames[rootNodeID] = {
                 current: this.getName(),
@@ -10675,16 +10675,16 @@
               var step
               while (!(step = iterator.next()).done) {
                 if (ReactElement.isValidElement(step.value)) {
-              validateExplicitKey(step.value, parentType)
-            }
+                  validateExplicitKey(step.value, parentType)
+                }
               }
             }
           } else if (typeof node === 'object') {
             var fragment = ReactFragment.extractIfFragment(node)
             for (var key in fragment) {
               if (fragment.hasOwnProperty(key)) {
-            validatePropertyKey(key, fragment[key], parentType)
-          }
+                validatePropertyKey(key, fragment[key], parentType)
+              }
             }
           }
         }
@@ -20877,13 +20877,13 @@
                                             prevElement._owner._isOwnerNecessary === false) ||
                                             (nextElement._owner != null &&
                                             nextElement._owner._isOwnerNecessary === false)) {
-                  if (prevElement._owner != null) {
-                              prevElement._owner._isOwnerNecessary = true
-                            }
-                  if (nextElement._owner != null) {
-                              nextElement._owner._isOwnerNecessary = true
-                            }
-                  ('production' !== 'development' ? warning(
+                      if (prevElement._owner != null) {
+                        prevElement._owner._isOwnerNecessary = true
+                      }
+                      if (nextElement._owner != null) {
+                        nextElement._owner._isOwnerNecessary = true
+                      }
+                      ('production' !== 'development' ? warning(
                                               false,
                                               '<%s /> is being rendered by both %s and %s using the same ' +
                                               'key (%s) in the same place. Currently, this means that ' +
@@ -20896,7 +20896,7 @@
                                               nextName || '[Unknown]',
                                               prevElement.key
                                             ) : null)
-                }
+                    }
                   }
                 }
               }

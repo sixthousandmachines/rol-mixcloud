@@ -1,7 +1,8 @@
 require.config({
   baseUrl: 'Scripts',
   paths: {
-    app: '../App'
+    app: '../App',
+    data: '../Data'
   }
 })
 

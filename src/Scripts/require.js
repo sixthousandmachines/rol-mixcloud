@@ -865,10 +865,10 @@ var requirejs, require, define;
               if ((this.events.error && this.map.isDefine) ||
                                 req.onError !== defaultOnError) {
                 try {
-                    exports = context.execCb(id, factory, depExports, exports)
-                  } catch (e) {
-                    err = e
-                  }
+                  exports = context.execCb(id, factory, depExports, exports)
+                } catch (e) {
+                  err = e
+                }
               } else {
                 exports = context.execCb(id, factory, depExports, exports)
               }
@@ -879,11 +879,11 @@ var requirejs, require, define;
               if (this.map.isDefine && exports === undefined) {
                 cjsModule = this.module
                 if (cjsModule) {
-                    exports = cjsModule.exports
-                  } else if (this.usingExports) {
+                  exports = cjsModule.exports
+                } else if (this.usingExports) {
                                     // exports already set the defined value.
-                      exports = this.exports
-                    }
+                  exports = this.exports
+                }
               }
 
               if (err) {

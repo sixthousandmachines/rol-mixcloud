@@ -7,9 +7,9 @@ define(['require'], function (require) {
   ]
 
   var cloud = {
-    baseUrl: 'http://api.mixcloud.com/',
-    profileUrl: '{dj}?metadata=1',
-    mixUrl: '{dj}/cloudcasts',
+    baseUrl: 'http://api.rideoutlane.com/',
+    profileUrl: '/api/info/{dj}',
+    mixUrl: '/api/mix/{dj}',
     widget: 'https://www.mixcloud.com/widget/iframe/?embed_type=widget_standard&amp;embed_uuid=32d91671-719d-455a-b03b-7d9edf82bfc4&amp;feed=https%3A%2F%2Fwww.mixcloud.com%2F{dj}%2F{slug}%2F&amp;hide_cover=1&amp;hide_tracklist=1&amp;mini=1&amp;replace=0'
   }
 
