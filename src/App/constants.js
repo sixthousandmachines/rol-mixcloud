@@ -1,7 +1,8 @@
 define(['require'], function (require) {
   var ActionConstants =
     {
-      CLICK: 'CLICK'
+      CLICK: 'CLICK',
+      LOAD: 'LOAD'
     }
 
   var EventConstants =

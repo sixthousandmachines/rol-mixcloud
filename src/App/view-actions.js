@@ -8,6 +8,13 @@ define(['require', 'flux-capacitor', 'app/constants'], function (require) {
         type: _actions.CLICK,
         value: value
       })
+    },
+
+    load: function (value) {
+      _dispatcher.handleViewAction({
+        type: _actions.LOAD,
+        value: value
+      })
     }
   }
 
